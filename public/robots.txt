@@ -12,3 +12,6 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://www.redsearoadseg.com/sitemap.xml
+

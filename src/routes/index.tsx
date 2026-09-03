@@ -1,804 +1,1263 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState, useEffect, useMemo } from "react";
+import {
+  Sun,
+  Moon,
+  Globe,
+  Phone,
+  Mail,
+  MapPin,
+  Menu,
+  X,
+  ChevronLeft,
+  ChevronRight,
+  ZoomIn,
+  CheckCircle2,
+  Building2,
+  ShieldCheck,
+  Award,
+  Users,
+  HardHat,
+  Truck,
+  Sparkles,
+  ExternalLink,
+  ArrowRight,
+  ArrowLeft,
+} from "lucide-react";
 
-import logo from "@/assets/pdf/logo.png";
-import highwayCover from "@/assets/pdf/highway-cover.jpg";
-import siteAerial from "@/assets/pdf/site-aerial.jpg";
-import rollerPaving from "@/assets/pdf/roller-paving.jpg";
-import works1 from "@/assets/pdf/works-1.jpg";
-import strengthening from "@/assets/pdf/strengthening.jpg";
-import teamWorks from "@/assets/pdf/team-works.jpg";
-import columnRepair from "@/assets/pdf/column-repair.jpg";
-import ceiling1 from "@/assets/pdf/ceiling-1.jpg";
-import shotcrete from "@/assets/pdf/shotcrete.jpg";
-import desertRoad from "@/assets/pdf/desert-road.jpg";
+import {
+  IMAGES,
+  CONTACT_INFO,
+  GALLERY_ITEMS_AR,
+  GALLERY_ITEMS_EN,
+  CONTENT,
+} from "@/lib/translations";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Red Sea for Roads Company — Road Contractor, Hurghada" },
+      { title: "شركة البحر الأحمر للمقاولات العامة ورصف الطرق | Red Sea for Roads" },
       {
         name: "description",
         content:
-          "Red Sea for Roads Company: road and asphalt works, insulation, drying, supply and strengthening works across the Red Sea Governorate. Established 2022, more than 20 years of experience.",
-      },
-      {
-        property: "og:title",
-        content: "Red Sea for Roads Company — Road Contractor, Hurghada",
-      },
-      {
-        property: "og:description",
-        content:
-          "Road and asphalt works, insulation, drying, supply and strengthening works across the Red Sea Governorate.",
+          "شركة متخصصة في مقاولات ورصف الطرق، أعمال الأسفلت، العزل، التجفيف، التوريدات والترميم بمحافظة البحر الأحمر (الغردقة، رأس غارب، سفاجا، مرسى علم، الجونة).",
       },
     ],
   }),
   component: Index,
 });
 
-const WHATSAPP_NUMBER = "201000597912";
-const WHATSAPP_DISPLAY = "0100 059 7912";
-
-const SOCIALS = [
-  { name: "Facebook", href: "https://www.facebook.com", icon: FacebookIcon },
-  { name: "Instagram", href: "https://www.instagram.com", icon: InstagramIcon },
-  { name: "LinkedIn", href: "https://www.linkedin.com", icon: LinkedInIcon },
-  { name: "YouTube", href: "https://www.youtube.com", icon: YouTubeIcon },
-  { name: "TikTok", href: "https://www.tiktok.com", icon: TikTokIcon },
-];
-
-const NAV = [
-  { label: "Profile", href: "#profile" },
-  { label: "Vision & Mission", href: "#vision" },
-  { label: "Core Values", href: "#values" },
-  { label: "Classification", href: "#classification" },
-  { label: "Projects", href: "#projects" },
-  { label: "Quality", href: "#quality" },
-  { label: "Work Team", href: "#team" },
-];
-
-const PROFILE = [
-  { label: "Year of Establishment", value: "2022" },
-  {
-    label: "Head Office",
-    value:
-      "10 Al-Wahda Street, Al-Manshya, Hurghada, Red Sea Governorate, Egypt",
-  },
-  {
-    label: "Geographical Scope of Work",
-    value:
-      "Red Sea Governorate (Ras Ghareb – Hurghada – Sahl Hasheesh – Safaga – Soma Bay – El Quseir – Marsa Alam)",
-  },
-  { label: "Years of Experience", value: "More than 20 years of experience" },
-];
-
-const VALUES = [
-  {
-    no: "1",
-    title: "Integrity",
-    body: "We operate with honesty and transparency, building trust with our clients, partners, and employees.",
-  },
-  {
-    no: "2",
-    title: "Quality",
-    body: "Commitment to excellence is at the heart of our work. We maintain the highest standards in every project we undertake.",
-  },
-  {
-    no: "3",
-    title: "Innovation",
-    body: "We embrace new technologies and methodologies to continuously improve our services and enhance efficiency.",
-  },
-  {
-    no: "4",
-    title: "Sustainability",
-    body: "We prioritize eco-friendly practices and work to minimize our environmental impact while promoting sustainable development.",
-  },
-  {
-    no: "5",
-    title: "Collaboration",
-    body: "Building strong relationships with our clients, stakeholders, and communities is fundamental to our success.",
-  },
-  {
-    no: "6",
-    title: "Safety",
-    body: "We uphold the highest safety standards to protect our workers and the communities we serve.",
-  },
-];
-
-const SERVICES = [
-  "Road and asphalt works",
-  "Insulation works",
-  "Drying works",
-  "Supply works",
-  "Strengthening works",
-];
-
-const PROJECTS = [
-  {
-    name: "Porto Fino Resort",
-    loc: "Marsa Alam",
-    items: ["Internal and external road works"],
-  },
-  { name: "Dana Beach", loc: "Hurghada", items: ["Road works"] },
-  { name: "El Gouna", loc: "Hurghada", items: ["Internal road works"] },
-  { name: "Neverland", loc: "Hurghada", items: ["Road works"] },
-  { name: "Italian Hotel School", loc: "Hurghada", items: ["Road works"] },
-  {
-    name: "Albatros Palace",
-    loc: "Hurghada",
-    items: [
-      "Tank works + insulation with Osmoseal materials + cement insulation",
-    ],
-  },
-  {
-    name: "Jungle Aqua Park 3",
-    loc: "Hurghada",
-    items: ["Cement insulation works for tanks"],
-  },
-  {
-    name: "Titanic Pearl",
-    loc: "Hurghada",
-    items: ["Carbon fiber strengthening works"],
-  },
-  {
-    name: "Redcon",
-    loc: "Soma Bay",
-    items: ["Supply works of coarse sand and fine sand"],
-  },
-  {
-    name: "Remvara",
-    loc: "Hurghada",
-    items: [
-      "Restoration and strengthening works using shotcrete",
-      "Internal and external waterproofing works for the sewage pit",
-      "Dewatering, excavation, and soil replacement works for the Health Club building",
-      "Concrete repair",
-    ],
-  },
-  {
-    name: "Porto Fino Resort",
-    loc: "Marsa Alam",
-    items: [
-      "Excavation works in rocky soil",
-      "Asphalt work",
-      "Traffic signage and marking",
-    ],
-  },
-  { name: "Aqua Vista Hotel", loc: "Hurghada", items: ["Road works"] },
-  {
-    name: "Balady Hotel",
-    loc: "Marsa Alam",
-    items: ["Excavation and Backfilling Works"],
-  },
-  {
-    name: "Maraya Mall",
-    loc: "El Gouna",
-    items: [
-      "Road Grading Works",
-      "Land scape work",
-      "Interlock tiles",
-      "Curb stone work",
-    ],
-  },
-];
-
-const QUALITY_PRINCIPLES = [
-  {
-    title: "Compliance with Technical Specifications",
-    body: "Full adherence to approved engineering drawings and national and international standards, ensuring accurate laboratory testing of materials such as asphalt, concrete, and soil.",
-  },
-  {
-    title: "Continuous Improvement",
-    body: "Ongoing development of operational processes by adopting the latest technologies and equipment in road construction and paving, while continuously updating work systems in accordance with the ISO 9001 Quality Management System.",
-  },
-  {
-    title: "Human Resources Competence",
-    body: "Investing in the training and development of engineers and technicians to ensure tasks are executed with the highest level of professionalism, while promoting a strong sense of responsibility toward quality outcomes.",
-  },
-  {
-    title: "Customer and Partner Satisfaction",
-    body: "Prioritizing client expectations by adhering to project timelines and delivering solutions that are precise, cost-effective, and high in quality.",
-  },
-  {
-    title: "Safety and Environment",
-    body: "Integrating occupational and traffic safety standards within the quality management system to protect workers and road users, while minimizing the environmental impact of construction activities.",
-  },
-  {
-    title: "Monitoring and Auditing",
-    body: "Implementing effective internal and field supervision throughout all project stages, from commencement to final handover, to ensure proper execution and compliance with technical requirements.",
-  },
-];
-
-const OBJECTIVES = [
-  {
-    no: "1",
-    title: "Technical and Operational Excellence",
-    points: [
-      {
-        head: "Zero Technical Errors",
-        body: "Reducing rework rates to the lowest possible level (less than 2%) through strict monitoring during early execution stages.",
-      },
-      {
-        head: "Material Compliance",
-        body: "Ensuring 100% compliance of all supplied materials (bitumen, aggregates, base layers) with approved technical specifications through periodic laboratory testing.",
-      },
-    ],
-  },
-  {
-    no: "2",
-    title: "Schedule Commitment",
-    points: [
-      {
-        head: "Delivery Efficiency",
-        body: "Completing 95% of road projects on or before the contractual deadline while maintaining quality standards without compromise.",
-      },
-      {
-        head: "Rapid Response",
-        body: "Addressing any technical observations raised by consultants or clients within a maximum timeframe of 48–72 hours.",
-      },
-    ],
-  },
-  {
-    no: "3",
-    title: "Safety and Sustainability",
-    points: [
-      {
-        head: "Site Safety",
-        body: "Achieving an accident-free record with no major incidents through strict application of occupational and traffic safety protocols.",
-      },
-      {
-        head: "Extended Service Life",
-        body: "Executing paving and periodic maintenance works in a manner that ensures optimal road performance throughout its designed service life.",
-      },
-    ],
-  },
-  {
-    no: "4",
-    title: "Development and Training",
-    points: [
-      {
-        head: "Competency Enhancement",
-        body: "Implementing specialized training programs for at least 80% of engineers and technicians in modern paving technologies and quality management systems.",
-      },
-      {
-        head: "Equipment Upgrading",
-        body: "Periodic maintenance and upgrading of 100% of the heavy equipment fleet to ensure execution accuracy and minimize unexpected breakdowns.",
-      },
-    ],
-  },
-  {
-    no: "5",
-    title: "Customer Satisfaction",
-    points: [
-      {
-        head: "Satisfaction Index",
-        body: "Achieving an “Excellent” rating from supervising authorities and clients in at least 90% of executed projects.",
-      },
-    ],
-  },
-];
-
-const TEAM = [
-  { role: "Chairman", name: "Eng. Mamdouh El-Sayed" },
-  { role: "Chief Executive Officer | CEO", name: "Eng. Ehab El-Mohamady" },
-  { role: "Chief Financial Officer | CFO", name: "Mr. Ahmed Sanousi" },
-];
-
-const GALLERY = [
-  { src: siteAerial, alt: "Aerial view of the company's road works site", w: 1583, h: 1117 },
-  { src: rollerPaving, alt: "Road roller compacting a new asphalt layer", w: 1269, h: 886 },
-  { src: works1, alt: "Company works on site", w: 962, h: 1098 },
-  { src: strengthening, alt: "Structural strengthening works with shotcrete", w: 1379, h: 1653 },
-  { src: teamWorks, alt: "Excavation works with a hydraulic excavator", w: 640, h: 853 },
-  { src: columnRepair, alt: "Concrete column repair and reinforcement works", w: 1196, h: 1590 },
-  { src: ceiling1, alt: "Ceiling restoration works", w: 676, h: 921 },
-  { src: shotcrete, alt: "Shotcrete restoration and strengthening works", w: 1597, h: 900 },
-];
-
-function SectionHead({ title, kicker }: { title: string; kicker?: string }) {
-  return (
-    <header className="mb-8">
-      {kicker ? (
-        <span className="eyebrow text-accent">{kicker}</span>
-      ) : null}
-      <h2 className="mt-2 text-2xl font-semibold tracking-tight text-primary sm:text-4xl">
-        {title}
-      </h2>
-      <span className="mt-4 block h-0.5 w-16 red-rule" />
-    </header>
-  );
-}
-
 function Index() {
-  const waHref = `https://wa.me/${WHATSAPP_NUMBER}`;
+  // --- Language & Theme State ---
+  const [lang, setLang] = useState<"ar" | "en">("ar");
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [projectCategory, setProjectCategory] = useState<string>("all");
+  const [activeImage, setActiveImage] = useState<any>(null);
+
+  // Gallery Carousel Slider State
+  const [slideIndex, setSlideIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Contact Form State
+  const [contactName, setContactName] = useState("");
+  const [contactEmail, setContactEmail] = useState("");
+  const [contactMsg, setContactMsg] = useState("");
+  const [contactSent, setContactSent] = useState(false);
+  const [contactSubmitting, setContactSubmitting] = useState(false);
+
+  // Detect device language & system dark mode on initial mount
+  useEffect(() => {
+    // Language detection
+    const savedLang = localStorage.getItem("redsea_lang");
+    if (savedLang === "ar" || savedLang === "en") {
+      setLang(savedLang);
+    } else if (typeof navigator !== "undefined") {
+      const userLang = (navigator.language || "").toLowerCase();
+      if (userLang.startsWith("ar")) {
+        setLang("ar");
+      } else {
+        setLang("en");
+      }
+    }
+
+    // Theme detection
+    const savedTheme = localStorage.getItem("redsea_theme");
+    if (savedTheme === "light" || savedTheme === "dark") {
+      setTheme(savedTheme);
+    } else if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      setTheme("dark");
+    }
+  }, []);
+
+  // Update HTML document attributes when language changes
+  useEffect(() => {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+    localStorage.setItem("redsea_lang", lang);
+  }, [lang]);
+
+  // Update HTML dark class when theme changes
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+    localStorage.setItem("redsea_theme", theme);
+  }, [theme]);
+
+  const t = CONTENT[lang];
+  const galleryItems = lang === "ar" ? GALLERY_ITEMS_AR : GALLERY_ITEMS_EN;
+
+  // Auto carousel slide timer (2 items per slide every 1.5 seconds)
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(() => {
+      setSlideIndex((prev) => (prev + 2 >= galleryItems.length ? 0 : prev + 2));
+    }, 1500);
+    return () => clearInterval(timer);
+  }, [isPaused, galleryItems.length]);
+
+  const prevSlidePair = () => {
+    setSlideIndex((prev) =>
+      prev - 2 < 0 ? Math.floor((galleryItems.length - 1) / 2) * 2 : prev - 2
+    );
+  };
+
+  const nextSlidePair = () => {
+    setSlideIndex((prev) => (prev + 2 >= galleryItems.length ? 0 : prev + 2));
+  };
+
+  const toggleLanguage = () => {
+    setLang((prev) => (prev === "ar" ? "en" : "ar"));
+  };
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  };
+
+  // Filtered projects
+  const filteredProjects = useMemo(() => {
+    if (projectCategory === "all") return t.projects.items;
+    if (projectCategory === "roads")
+      return t.projects.items.filter((p) => p.category.includes("طرق") || p.category.includes("Roads"));
+    if (projectCategory === "insulation")
+      return t.projects.items.filter((p) => p.category.includes("عزل") || p.category.includes("Insulation"));
+    if (projectCategory === "strengthening")
+      return t.projects.items.filter((p) => p.category.includes("تدعيم") || p.category.includes("Strengthening"));
+    if (projectCategory === "supply")
+      return t.projects.items.filter((p) => p.category.includes("توريد") || p.category.includes("Supplies"));
+    return t.projects.items;
+  }, [projectCategory, t]);
+
+  // Lightbox handlers
+  const openLightbox = (item: any) => setActiveImage(item);
+  const closeLightbox = () => setActiveImage(null);
+
+  const prevLightboxImage = () => {
+    if (!activeImage) return;
+    const currentIndex = galleryItems.findIndex((g) => g.id === activeImage.id);
+    const prevIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
+    setActiveImage(galleryItems[prevIndex]);
+  };
+
+  const nextLightboxImage = () => {
+    if (!activeImage) return;
+    const currentIndex = galleryItems.findIndex((g) => g.id === activeImage.id);
+    const nextIndex = (currentIndex + 1) % galleryItems.length;
+    setActiveImage(galleryItems[nextIndex]);
+  };
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* HEADER */}
-      <header className="sticky top-0 z-30 border-b border-border bg-surface/95 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3">
-          <a href="#top" className="flex items-center">
+    <div className="min-h-screen bg-slate-50 text-slate-800 transition-colors duration-300 dark:bg-[#0b1329] dark:text-slate-100 font-sans">
+      {/* TOP ANNOUNCEMENT & CONTACT STRIP */}
+      <div className="bg-[#0a1730] text-slate-300 border-b border-slate-800 text-xs py-2 px-4 sm:px-8">
+        <div className="mx-auto max-w-7xl flex flex-wrap items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+            <a
+              href={`tel:+${CONTACT_INFO.phoneRaw}`}
+              className="flex items-center gap-1.5 hover:text-red-400 transition-colors"
+            >
+              <Phone className="size-3.5 text-red-500" />
+              <span dir="ltr">{CONTACT_INFO.phoneDisplay}</span>
+            </a>
+            <a
+              href={`mailto:${CONTACT_INFO.email}`}
+              className="hidden sm:flex items-center gap-1.5 hover:text-red-400 transition-colors"
+            >
+              <Mail className="size-3.5 text-red-500" />
+              <span>{CONTACT_INFO.email}</span>
+            </a>
+            <span className="hidden md:flex items-center gap-1.5 text-slate-400">
+              <MapPin className="size-3.5 text-red-500" />
+              <span>{lang === "ar" ? CONTACT_INFO.locationAr : CONTACT_INFO.locationEn}</span>
+            </span>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <span className="text-[11px] font-medium text-slate-400 hidden lg:inline">
+              {CONTACT_INFO.domain}
+            </span>
+            <div className="h-3.5 w-px bg-slate-700 hidden lg:block" />
+            <div className="flex items-center gap-2">
+              <a
+                href={CONTACT_INFO.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className="flex items-center gap-1.5 rounded-lg bg-emerald-600/90 px-2.5 py-1 text-[11px] font-bold text-white hover:bg-emerald-500 transition-all shadow-sm"
+              >
+                <WhatsAppIcon className="size-3.5" />
+                <span>{lang === "ar" ? "واتساب" : "WhatsApp"}</span>
+              </a>
+              <a
+                href={`mailto:${CONTACT_INFO.email}`}
+                aria-label="Email"
+                className="flex items-center gap-1.5 rounded-lg bg-red-600/90 px-2.5 py-1 text-[11px] font-bold text-white hover:bg-red-500 transition-all shadow-sm"
+              >
+                <Mail className="size-3.5" />
+                <span>{lang === "ar" ? "البريد الإلكتروني" : "Email"}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* HEADER / NAVIGATION BAR */}
+      <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/90 backdrop-blur-md transition-colors duration-300 dark:border-slate-800/80 dark:bg-[#0f172a]/90">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-8">
+          {/* Logo */}
+          <a href="#top" className="flex items-center gap-3 group">
             <img
-              src={logo}
-              alt="Red Sea For Roads Company logo"
+              src={IMAGES.logo}
+              alt="Red Sea For Roads Company Logo"
               width={1584}
               height={672}
-              className="h-9 w-auto sm:h-10"
+              className="h-10 w-auto sm:h-12 object-contain filter drop-shadow-sm transition-transform group-hover:scale-105"
             />
           </a>
-          <nav className="hidden items-center gap-6 lg:flex">
-            {NAV.map((n) => (
+
+          {/* Desktop Navigation Menu */}
+          <nav className="hidden items-center gap-1 xl:gap-2 lg:flex">
+            {t.nav.map((n) => (
               <a
                 key={n.href}
                 href={n.href}
-                className="text-xs font-medium text-muted-foreground transition-colors hover:text-primary"
+                className="rounded-lg px-3 py-2 text-xs font-semibold text-slate-700 transition-all hover:bg-red-50 hover:text-red-600 dark:text-slate-200 dark:hover:bg-slate-800/80 dark:hover:text-red-400"
               >
                 {n.label}
               </a>
             ))}
           </nav>
-          <a
-            href={waHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-md bg-whatsapp px-3.5 py-2 text-xs font-semibold text-primary-foreground transition-opacity hover:opacity-90"
-          >
-            <WhatsAppIcon className="size-4" />
-            WhatsApp
-          </a>
+
+          {/* Action Controls */}
+          <div className="flex items-center gap-2.5">
+            {/* Theme Toggle Button */}
+            <button
+              onClick={toggleTheme}
+              aria-label="Toggle dark mode"
+              className="flex size-9 items-center justify-center rounded-lg border border-slate-200 bg-slate-100 text-slate-700 transition-all hover:border-slate-300 hover:bg-slate-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+              title={theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
+            >
+              {theme === "light" ? <Moon className="size-4 text-slate-700" /> : <Sun className="size-4 text-amber-400" />}
+            </button>
+
+            {/* Language Switcher Button */}
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-100 px-3 py-2 text-xs font-bold text-slate-700 transition-all hover:border-slate-300 hover:bg-slate-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+            >
+              <Globe className="size-3.5 text-red-600 dark:text-red-400" />
+              <span>{lang === "ar" ? "English" : "العربية"}</span>
+            </button>
+
+            {/* WhatsApp CTA Button */}
+            <a
+              href={CONTACT_INFO.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-4 py-2 text-xs font-bold text-white shadow-sm transition-all hover:bg-emerald-700 hover:shadow-md active:scale-95"
+            >
+              <WhatsAppIcon className="size-4" />
+              <span>واتساب</span>
+            </a>
+
+            {/* Mobile Hamburger Button */}
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="flex size-9 items-center justify-center rounded-lg border border-slate-200 bg-slate-100 text-slate-700 lg:hidden dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+              aria-label="Toggle mobile menu"
+            >
+              {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Navigation Drawer */}
+        {mobileOpen && (
+          <div className="border-b border-slate-200 bg-white/95 px-5 py-4 backdrop-blur-lg lg:hidden dark:border-slate-800 dark:bg-[#0f172a]/95 rise">
+            <div className="grid gap-1">
+              {t.nav.map((n) => (
+                <a
+                  key={n.href}
+                  href={n.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="rounded-lg px-3 py-2.5 text-sm font-semibold text-slate-800 transition-colors hover:bg-red-50 hover:text-red-600 dark:text-slate-100 dark:hover:bg-slate-800 dark:hover:text-red-400"
+                >
+                  {n.label}
+                </a>
+              ))}
+              <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-2">
+                <a
+                  href={CONTACT_INFO.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 rounded-lg bg-emerald-600 py-2.5 text-sm font-bold text-white shadow-sm"
+                >
+                  <WhatsAppIcon className="size-4" />
+                  <span>تواصل عبر واتساب</span>
+                </a>
+                <a
+                  href={`tel:+${CONTACT_INFO.phoneRaw}`}
+                  className="flex items-center justify-center gap-2 rounded-lg bg-slate-900 py-2.5 text-sm font-bold text-white dark:bg-slate-800"
+                >
+                  <Phone className="size-4 text-red-500" />
+                  <span>اتصال مباشر: {CONTACT_INFO.phoneDisplay}</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
       </header>
 
-      {/* COVER */}
-      <section id="top" className="relative">
-        <img
-          src={highwayCover}
-          alt="Highway with fresh asphalt and lane markings"
-          width={2338}
-          height={1653}
-          className="h-[70svh] min-h-[440px] w-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-primary-deep/55 via-primary/25 to-primary-deep/80" />
-        <div className="absolute inset-x-0 top-0 flex flex-col items-center px-5 pt-10 text-center">
+      {/* HERO SECTION */}
+      <section id="top" className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-slate-950 text-white">
+        {/* Background Image with Gradient Overlay */}
+        <div className="absolute inset-0 z-0">
           <img
-            src={logo}
-            alt="Red Sea For Roads Company"
-            width={1584}
-            height={672}
-            className="rise w-[min(78%,420px)]"
+            src={IMAGES.luxuryHighwayHero}
+            alt="Luxury Paved Highway Red Sea Coast"
+            width={2338}
+            height={1653}
+            className="h-full w-full object-cover object-center scale-105 transition-transform duration-10000 ease-out"
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#060c1a] via-[#09152a]/75 to-[#0f2347]/50" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-slate-950/40 to-slate-950/90" />
         </div>
-        <div className="absolute inset-x-0 bottom-0 px-5 pb-8 text-center">
-          <p className="eyebrow text-primary-foreground/80">
-            Year of Establishment
+
+        {/* Hero Content */}
+        <div className="relative z-10 mx-auto max-w-7xl px-4 py-20 sm:px-8 text-center">
+          {/* Eyebrow Tag */}
+          <div className="inline-flex items-center gap-2 rounded-full border border-red-500/40 bg-red-950/60 backdrop-blur-md px-4 py-1.5 text-xs font-bold text-red-300 shadow-glow mb-6 rise">
+            <Sparkles className="size-3.5 text-red-400" />
+            <span>{t.hero.tag}</span>
+          </div>
+
+          {/* Main Title */}
+          <h1 className="mx-auto max-w-5xl text-3xl font-black tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl leading-tight sm:leading-none rise">
+            {t.hero.title}
+          </h1>
+
+          {/* Subtitle */}
+          <p className="mx-auto mt-6 max-w-3xl text-sm leading-relaxed text-slate-300 sm:text-lg md:text-xl font-normal rise">
+            {t.hero.subtitle}
           </p>
-          <p className="mt-1 text-4xl font-semibold text-primary-foreground sm:text-5xl">
-            2022
-          </p>
+
+          {/* CTA Buttons */}
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4 rise">
+            <a
+              href={CONTACT_INFO.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 rounded-xl bg-emerald-600 px-7 py-3.5 text-sm font-bold text-white shadow-lg transition-all hover:bg-emerald-500 hover:scale-105 active:scale-95"
+            >
+              <WhatsAppIcon className="size-5" />
+              <span>{t.hero.ctaPrimary}</span>
+            </a>
+
+            <a
+              href="#projects"
+              className="inline-flex items-center gap-2.5 rounded-xl border border-white/20 bg-white/10 backdrop-blur-md px-7 py-3.5 text-sm font-bold text-white shadow-lg transition-all hover:bg-white/20 hover:border-white/40 hover:scale-105 active:scale-95"
+            >
+              <span>{t.hero.ctaSecondary}</span>
+              {lang === "ar" ? <ArrowLeft className="size-4" /> : <ArrowRight className="size-4" />}
+            </a>
+
+            <a
+              href={`tel:+${CONTACT_INFO.phoneRaw}`}
+              className="inline-flex items-center gap-2.5 rounded-xl border border-red-500/50 bg-red-600/20 backdrop-blur-md px-7 py-3.5 text-sm font-bold text-red-300 transition-all hover:bg-red-600 hover:text-white"
+            >
+              <Phone className="size-4" />
+              <span dir="ltr">{CONTACT_INFO.phoneDisplay}</span>
+            </a>
+          </div>
+
+          {/* Key Stats Counter Grid */}
+          <div className="mt-16 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:gap-6 rise">
+            {t.hero.stats.map((s, idx) => (
+              <div
+                key={idx}
+                className="rounded-2xl border border-slate-800/80 bg-slate-900/70 p-4 sm:p-6 backdrop-blur-md shadow-card text-center"
+              >
+                <div className="text-2xl sm:text-4xl font-extrabold text-red-500 tracking-tight">
+                  {s.value}
+                </div>
+                <div className="mt-1 text-xs sm:text-sm font-semibold text-slate-300">
+                  {s.label}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* PROFILE */}
-      <section id="profile" className="mx-auto max-w-6xl px-5 py-14 sm:py-20">
-        <SectionHead kicker="Company profile" title="Company Data" />
-        <dl className="grid gap-px overflow-hidden rounded-lg bg-border shadow-card sm:grid-cols-2">
-          {PROFILE.map((p) => (
-            <div key={p.label} className="bg-card p-6">
-              <dt className="eyebrow text-accent">{p.label}</dt>
-              <dd className="mt-3 text-sm leading-relaxed text-foreground sm:text-base">
+      {/* SECTION 1: PROFILE / بيانات الشركة */}
+      <section id="profile" className="mx-auto max-w-7xl px-4 py-16 sm:px-8 sm:py-24">
+        <div className="mb-10 text-center sm:text-start">
+          <span className="eyebrow text-red-600 dark:text-red-400 font-bold">{t.profile.kicker}</span>
+          <h2 className="mt-2 text-2xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+            {t.profile.title}
+          </h2>
+          <div className="mt-3 h-1 w-20 bg-red-600 rounded-full sm:mx-0 mx-auto" />
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {t.profile.items.map((p, idx) => (
+            <div
+              key={idx}
+              className="group relative overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-6 shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-red-500/40 hover:shadow-panel dark:border-slate-800 dark:bg-[#132244]"
+            >
+              <div className="absolute top-0 right-0 h-1.5 w-full bg-slate-200 group-hover:bg-red-600 transition-colors" />
+              <div className="text-xs font-bold uppercase tracking-wider text-red-600 dark:text-red-400 mb-2">
+                {p.label}
+              </div>
+              <div className="text-sm sm:text-base font-semibold leading-relaxed text-slate-800 dark:text-slate-100">
                 {p.value}
-              </dd>
+              </div>
             </div>
           ))}
-        </dl>
+        </div>
       </section>
 
-      {/* VISION & MISSION */}
-      <section id="vision" className="border-y border-border bg-surface">
-        <div className="mx-auto max-w-6xl px-5 py-14 sm:py-20">
-          <SectionHead kicker="Direction" title="Company Vision & Mission" />
-          <div className="grid gap-8 lg:grid-cols-[1fr_1fr] lg:gap-12">
+      {/* SECTION 2: VISION & MISSION / الرؤية والرسالة */}
+      <section id="vision" className="border-y border-slate-200 bg-slate-100/60 py-16 sm:py-24 dark:border-slate-800 dark:bg-[#0f1b36]">
+        <div className="mx-auto max-w-7xl px-4 sm:px-8">
+          <div className="grid gap-12 lg:grid-cols-2 items-center">
+            {/* Vision & Mission Text Cards */}
             <div className="space-y-8">
-              <article className="border-l-4 border-primary pl-5">
-                <h3 className="text-lg font-semibold text-primary">
-                  Company Vision
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
-                  To lead in developing innovative and sustainable engineering
-                  solutions for road networks by integrating modern technology
-                  with environmental preservation. We aim to leave a distinctive
-                  mark in building smart cities and safe roads that support
-                  national economic growth and meet the aspirations of future
-                  generations, through a commitment to operational excellence
-                  and transforming geographical challenges into vital routes
-                  that efficiently connect communities.
+              <div className="mb-6">
+                <span className="eyebrow text-red-600 dark:text-red-400 font-bold">{t.vision.kicker}</span>
+                <h2 className="mt-2 text-2xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+                  {t.vision.title}
+                </h2>
+                <div className="mt-3 h-1 w-20 bg-red-600 rounded-full" />
+              </div>
+
+              {/* Vision Card */}
+              <div className="rounded-2xl border-l-4 border-red-600 bg-white p-6 sm:p-8 shadow-card dark:bg-[#132244] dark:border-red-500">
+                <div className="flex items-center gap-3">
+                  <div className="flex size-10 items-center justify-center rounded-xl bg-red-100 text-red-600 dark:bg-red-950/60 dark:text-red-400">
+                    <Building2 className="size-5" />
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
+                    {t.vision.visionTitle}
+                  </h3>
+                </div>
+                <p className="mt-4 text-sm sm:text-base leading-relaxed text-slate-600 dark:text-slate-300">
+                  {t.vision.visionBody}
                 </p>
-              </article>
-              <article className="border-l-4 border-accent pl-5">
-                <h3 className="text-lg font-semibold text-primary">
-                  Company Mission
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
-                  Our mission is to deliver outstanding engineering and
-                  construction services in the roads sector, relying on the
-                  expertise of our technical team and the latest global
-                  technologies. We are committed to executing our projects with
-                  the highest level of precision and strict timelines, while
-                  ensuring maximum safety for road users and providing added
-                  value to our partners.
+              </div>
+
+              {/* Mission Card */}
+              <div className="rounded-2xl border-l-4 border-slate-900 bg-white p-6 sm:p-8 shadow-card dark:bg-[#132244] dark:border-slate-400">
+                <div className="flex items-center gap-3">
+                  <div className="flex size-10 items-center justify-center rounded-xl bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-slate-100">
+                    <Award className="size-5" />
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
+                    {t.vision.missionTitle}
+                  </h3>
+                </div>
+                <p className="mt-4 text-sm sm:text-base leading-relaxed text-slate-600 dark:text-slate-300">
+                  {t.vision.missionBody}
                 </p>
-              </article>
+              </div>
             </div>
-            <figure className="overflow-hidden rounded-lg shadow-panel">
+
+            {/* Feature Photo Showcase */}
+            <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-panel dark:border-slate-800 dark:bg-slate-900 group">
               <img
-                src={rollerPaving}
-                alt="Road roller compacting a new asphalt layer on site"
+                src={IMAGES.rollerPaving}
+                alt="Asphalt Road Roller Construction Site"
                 width={1269}
                 height={886}
                 loading="lazy"
-                className="h-full w-full object-cover"
+                decoding="async"
+                className="h-[440px] w-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
-            </figure>
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+              <div className="absolute bottom-6 inset-x-6 text-white">
+                <span className="rounded-full bg-red-600 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
+                  مواقع التنفيذ الميداني
+                </span>
+                <h4 className="mt-2 text-lg font-bold text-white">
+                  أحدث معدات الرصف والدك الإنعكاسي لضمان الجودة
+                </h4>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* CORE VALUES */}
-      <section id="values" className="mx-auto max-w-6xl px-5 py-14 sm:py-20">
-        <SectionHead kicker="How we work" title="Core Values" />
-        <div className="grid gap-px overflow-hidden rounded-lg bg-border shadow-card sm:grid-cols-2 lg:grid-cols-3">
-          {VALUES.map((v) => (
-            <article key={v.no} className="bg-card p-6">
-              <span className="inline-flex size-8 items-center justify-center rounded-md bg-primary text-sm font-semibold text-primary-foreground">
-                {v.no}
-              </span>
-              <h3 className="mt-4 text-base font-semibold text-primary">
+      {/* SECTION 3: CORE VALUES / القيم الجوهرية */}
+      <section id="values" className="mx-auto max-w-7xl px-4 py-16 sm:px-8 sm:py-24">
+        <div className="mb-12 text-center sm:text-start">
+          <span className="eyebrow text-red-600 dark:text-red-400 font-bold">{t.values.kicker}</span>
+          <h2 className="mt-2 text-2xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+            {t.values.title}
+          </h2>
+          <div className="mt-3 h-1 w-20 bg-red-600 rounded-full sm:mx-0 mx-auto" />
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {t.values.items.map((v) => (
+            <div
+              key={v.no}
+              className="group rounded-2xl border border-slate-200/90 bg-white p-7 shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:border-red-500/50 hover:shadow-panel dark:border-slate-800 dark:bg-[#132244]"
+            >
+              <div className="flex items-center justify-between">
+                <span className="inline-flex size-10 items-center justify-center rounded-xl bg-red-600 text-sm font-extrabold text-white shadow-sm group-hover:scale-110 transition-transform">
+                  {v.no}
+                </span>
+                <ShieldCheck className="size-6 text-slate-300 group-hover:text-red-500 transition-colors dark:text-slate-600" />
+              </div>
+              <h3 className="mt-5 text-lg font-bold text-slate-900 dark:text-white group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
                 {v.title}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              <p className="mt-2.5 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
                 {v.body}
               </p>
-            </article>
+            </div>
           ))}
         </div>
       </section>
 
-      {/* CLASSIFICATION & SERVICES */}
-      <section id="classification" className="border-y border-border bg-surface">
-        <div className="mx-auto max-w-6xl px-5 py-14 sm:py-20">
-          <SectionHead
-            kicker="Company Classification"
-            title="Medium-Sized Contracting Company"
-          />
-          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
+      {/* SECTION 4: CLASSIFICATION & SERVICES / التصنيف والخدمات */}
+      <section id="classification" className="border-y border-slate-200 bg-slate-100/60 py-16 sm:py-24 dark:border-slate-800 dark:bg-[#0f1b36]">
+        <div className="mx-auto max-w-7xl px-4 sm:px-8">
+          <div className="grid gap-12 lg:grid-cols-2 items-center">
+            {/* Services List */}
             <div>
-              <h3 className="eyebrow text-accent">Services Provided</h3>
-              <ul className="mt-4 divide-y divide-border">
-                {SERVICES.map((s, i) => (
-                  <li
-                    key={s}
-                    className="flex items-baseline gap-4 py-3 text-sm sm:text-base"
+              <span className="eyebrow text-red-600 dark:text-red-400 font-bold">{t.classification.kicker}</span>
+              <h2 className="mt-2 text-2xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+                {t.classification.title}
+              </h2>
+              <p className="mt-3 text-sm sm:text-base font-semibold text-slate-600 dark:text-slate-300">
+                {t.classification.servicesTitle}
+              </p>
+
+              <div className="mt-8 space-y-4">
+                {t.classification.services.map((s) => (
+                  <div
+                    key={s.no}
+                    className="flex items-start gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-card transition-all hover:border-red-500/40 dark:border-slate-800 dark:bg-[#132244]"
                   >
-                    <span className="text-xs font-semibold text-accent">
-                      {String(i + 1).padStart(2, "0")}
+                    <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-red-100 text-xs font-black text-red-600 dark:bg-red-950/80 dark:text-red-400">
+                      {s.no}
                     </span>
-                    <span className="text-foreground">{s}</span>
-                  </li>
+                    <div>
+                      <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                        {s.name}
+                      </h3>
+                      <p className="mt-1 text-xs sm:text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                        {s.desc}
+                      </p>
+                    </div>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
-            <figure className="overflow-hidden rounded-lg shadow-panel">
+
+            {/* Road Network Scope Image */}
+            <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-panel dark:border-slate-800 dark:bg-slate-900 group">
               <img
-                src={siteAerial}
-                alt="Aerial view of a road works site"
+                src={IMAGES.desertRoad}
+                alt="Red Sea Desert Road Construction Scope"
                 width={1583}
                 height={1117}
                 loading="lazy"
-                className="h-full w-full object-cover"
+                decoding="async"
+                className="h-[520px] w-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
-            </figure>
-          </div>
-        </div>
-      </section>
-
-      {/* PROJECTS */}
-      <section id="projects" className="mx-auto max-w-6xl px-5 py-14 sm:py-20">
-        <SectionHead
-          kicker="Work Experience"
-          title="Previous Projects"
-        />
-        <ul className="grid gap-px overflow-hidden rounded-lg bg-border shadow-card sm:grid-cols-2">
-          {PROJECTS.map((p, i) => (
-            <li key={`${p.name}-${i}`} className="bg-card p-6">
-              <div className="flex items-baseline justify-between gap-3">
-                <h3 className="text-base font-semibold text-primary">
-                  {p.name}
-                </h3>
-                <span className="eyebrow shrink-0 text-accent">{p.loc}</span>
-              </div>
-              <ul className="mt-3 space-y-1.5">
-                {p.items.map((it) => (
-                  <li
-                    key={it}
-                    className="flex gap-2.5 text-sm leading-relaxed text-muted-foreground"
-                  >
-                    <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-accent" />
-                    {it}
-                  </li>
-                ))}
-              </ul>
-            </li>
-          ))}
-        </ul>
-
-        {/* PROJECT PHOTOS FROM THE PROFILE */}
-        <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
-          {GALLERY.map((g) => (
-            <figure
-              key={g.alt}
-              className="overflow-hidden rounded-lg bg-muted shadow-card"
-            >
-              <img
-                src={g.src}
-                alt={g.alt}
-                width={g.w}
-                height={g.h}
-                loading="lazy"
-                className="h-40 w-full object-cover sm:h-48"
-              />
-            </figure>
-          ))}
-        </div>
-      </section>
-
-      {/* QUALITY POLICY */}
-      <section id="quality" className="border-y border-border bg-surface">
-        <div className="mx-auto max-w-6xl px-5 py-14 sm:py-20">
-          <SectionHead kicker="Quality Policy" title="Our Quality Commitment" />
-          <p className="max-w-[80ch] text-sm leading-relaxed text-muted-foreground sm:text-base">
-            Red Sea for Roads Company is fully committed to applying the highest
-            quality standards across all road construction and infrastructure
-            works, based on our firm belief that quality is the cornerstone of
-            sustainable infrastructure and community safety. Our quality policy
-            is based on the following principles:
-          </p>
-          <div className="mt-8 grid gap-px overflow-hidden rounded-lg bg-border shadow-card sm:grid-cols-2 lg:grid-cols-3">
-            {QUALITY_PRINCIPLES.map((q) => (
-              <article key={q.title} className="bg-card p-6">
-                <h3 className="text-base font-semibold text-primary">
-                  {q.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {q.body}
-                </p>
-              </article>
-            ))}
-          </div>
-          <p className="mt-8 max-w-[80ch] border-l-4 border-accent pl-5 text-sm leading-relaxed text-foreground sm:text-base">
-            Quality within our company is not merely a procedural requirement;
-            it is a work culture embraced by every individual to ensure the
-            construction of safe, efficient, and sustainable road networks that
-            support development and align with the company’s long-term
-            objectives.
-          </p>
-        </div>
-      </section>
-
-      {/* QUALITY OBJECTIVES */}
-      <section className="mx-auto max-w-6xl px-5 py-14 sm:py-20">
-        <SectionHead kicker="Quality Objectives" title="Phased Objectives" />
-        <p className="max-w-[80ch] text-sm leading-relaxed text-muted-foreground sm:text-base">
-          Red Sea for Roads Company has established a set of phased objectives
-          to ensure the effective implementation of its quality policy and to
-          achieve operational excellence in road projects:
-        </p>
-        <div className="mt-8 grid gap-8 lg:grid-cols-[1.4fr_0.6fr] lg:gap-12">
-          <ol className="space-y-8">
-            {OBJECTIVES.map((o) => (
-              <li key={o.no} className="flex gap-4">
-                <span className="mt-0.5 inline-flex size-8 shrink-0 items-center justify-center rounded-md bg-primary text-sm font-semibold text-primary-foreground">
-                  {o.no}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+              <div className="absolute bottom-6 inset-x-6 text-white">
+                <span className="rounded-full bg-slate-900/80 backdrop-blur-md px-3.5 py-1.5 text-xs font-bold text-white border border-slate-700">
+                  نطاق العمل: محافظة البحر الأحمر
                 </span>
-                <div>
-                  <h3 className="text-base font-semibold text-primary">
-                    {o.title}
+                <h4 className="mt-3 text-xl font-bold text-white">
+                  الغردقة – رأس غارب – سفاجا – مرسى علم – الجونة – سهل حشيش
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 5: PROJECTS PORTFOLIO / المشروعات السابقة */}
+      <section id="projects" className="mx-auto max-w-7xl px-4 py-16 sm:px-8 sm:py-24">
+        <div className="mb-10 text-center sm:text-start">
+          <span className="eyebrow text-red-600 dark:text-red-400 font-bold">{t.projects.kicker}</span>
+          <h2 className="mt-2 text-2xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+            {t.projects.title}
+          </h2>
+          <div className="mt-3 h-1 w-20 bg-red-600 rounded-full sm:mx-0 mx-auto" />
+        </div>
+
+        {/* Filter Tabs */}
+        <div className="mb-8 flex flex-wrap items-center gap-2">
+          <button
+            onClick={() => setProjectCategory("all")}
+            className={`rounded-xl px-4 py-2 text-xs font-bold transition-all ${projectCategory === "all"
+              ? "bg-red-600 text-white shadow-md"
+              : "bg-slate-200/80 text-slate-700 hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-200"
+              }`}
+          >
+            {t.projects.filterAll}
+          </button>
+          <button
+            onClick={() => setProjectCategory("roads")}
+            className={`rounded-xl px-4 py-2 text-xs font-bold transition-all ${projectCategory === "roads"
+              ? "bg-red-600 text-white shadow-md"
+              : "bg-slate-200/80 text-slate-700 hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-200"
+              }`}
+          >
+            {t.projects.filterRoads}
+          </button>
+          <button
+            onClick={() => setProjectCategory("insulation")}
+            className={`rounded-xl px-4 py-2 text-xs font-bold transition-all ${projectCategory === "insulation"
+              ? "bg-red-600 text-white shadow-md"
+              : "bg-slate-200/80 text-slate-700 hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-200"
+              }`}
+          >
+            {t.projects.filterInsulation}
+          </button>
+          <button
+            onClick={() => setProjectCategory("strengthening")}
+            className={`rounded-xl px-4 py-2 text-xs font-bold transition-all ${projectCategory === "strengthening"
+              ? "bg-red-600 text-white shadow-md"
+              : "bg-slate-200/80 text-slate-700 hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-200"
+              }`}
+          >
+            {t.projects.filterStrengthening}
+          </button>
+          <button
+            onClick={() => setProjectCategory("supply")}
+            className={`rounded-xl px-4 py-2 text-xs font-bold transition-all ${projectCategory === "supply"
+              ? "bg-red-600 text-white shadow-md"
+              : "bg-slate-200/80 text-slate-700 hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-200"
+              }`}
+          >
+            {t.projects.filterSupply}
+          </button>
+        </div>
+
+        {/* Projects Cards Grid */}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {filteredProjects.map((p, idx) => (
+            <div
+              key={idx}
+              className="group relative flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-6 shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:border-red-500/50 hover:shadow-panel dark:border-slate-800 dark:bg-[#132244]"
+            >
+              <div>
+                <div className="flex items-start justify-between gap-3">
+                  <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
+                    {p.name}
                   </h3>
-                  <dl className="mt-3 space-y-3">
-                    {o.points.map((p) => (
-                      <div key={p.head}>
-                        <dt className="text-sm font-semibold text-accent">
-                          {p.head}
-                        </dt>
-                        <dd className="text-sm leading-relaxed text-muted-foreground">
-                          {p.body}
-                        </dd>
-                      </div>
-                    ))}
-                  </dl>
+                  <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-red-100 px-3 py-1 text-xs font-extrabold text-red-700 dark:bg-red-950/80 dark:text-red-300">
+                    <MapPin className="size-3" />
+                    {p.loc}
+                  </span>
                 </div>
-              </li>
-            ))}
-          </ol>
-          <aside className="h-fit rounded-lg bg-secondary p-6 shadow-card">
-            <h3 className="eyebrow text-accent">Administrative Note</h3>
-            <p className="mt-3 text-sm leading-relaxed text-foreground">
-              These objectives are monitored and measured through monthly
-              performance reports and management review meetings to ensure
-              continuous improvement and to address any deviations from the
-              approved quality standards.
-            </p>
-          </aside>
-        </div>
-      </section>
 
-      {/* WORK TEAM */}
-      <section id="team" className="border-y border-border bg-surface">
-        <div className="mx-auto max-w-6xl px-5 py-14 sm:py-20">
-          <SectionHead kicker="Work Team" title="Organizational Structure" />
-          <ul className="grid gap-px overflow-hidden rounded-lg bg-border shadow-card sm:grid-cols-3">
-            {TEAM.map((t) => (
-              <li key={t.name} className="bg-card p-6">
-                <span className="block h-0.5 w-10 red-rule" />
-                <p className="mt-4 text-sm text-muted-foreground">{t.role}</p>
-                <p className="mt-1 text-lg font-semibold text-primary">
-                  {t.name}
-                </p>
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-8 grid gap-px overflow-hidden rounded-lg bg-border shadow-card sm:grid-cols-2">
-            <div className="bg-card p-8 text-center">
-              <p className="text-sm text-muted-foreground">
-                Number of Engineers
-              </p>
-              <p className="mt-2 text-5xl font-semibold text-primary">50+</p>
-            </div>
-            <div className="bg-card p-8 text-center">
-              <p className="text-sm text-muted-foreground">
-                Number of Technicians and Workers
-              </p>
-              <p className="mt-2 text-5xl font-semibold text-primary">5</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CONTACT */}
-      <footer id="contact" className="relative">
-        <img
-          src={desertRoad}
-          alt="Open road heading into the horizon"
-          width={768}
-          height={543}
-          loading="lazy"
-          className="absolute inset-0 size-full object-cover"
-        />
-        <div className="absolute inset-0 bg-primary-deep/90" />
-        <div className="relative mx-auto max-w-6xl px-5 py-16 sm:py-20">
-          <img
-            src={logo}
-            alt="Red Sea For Roads Company"
-            width={1584}
-            height={672}
-            loading="lazy"
-            className="h-12 w-auto rounded-md bg-primary-foreground/95 px-3 py-2 sm:h-14"
-          />
-          <div className="mt-8 grid gap-8 sm:grid-cols-2">
-            <div className="space-y-3">
-              <a
-                href="https://www.redsearoads-eg.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-base tracking-wide text-primary-foreground underline decoration-primary-foreground/40 underline-offset-4 transition-opacity hover:opacity-80 sm:text-lg"
-              >
-                www.redsearoads-eg.com
-              </a>
-              <a
-                href="mailto:Info@redsearoads-eg.com"
-                className="block text-base tracking-wide text-primary-foreground underline decoration-primary-foreground/40 underline-offset-4 transition-opacity hover:opacity-80 sm:text-lg"
-              >
-                Info@redsearoads-eg.com
-              </a>
-              <a
-                href={`https://wa.me/${WHATSAPP_NUMBER}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-md bg-whatsapp px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
-              >
-                <WhatsAppIcon className="size-4" />
-                WhatsApp {WHATSAPP_DISPLAY}
-              </a>
-            </div>
-            <div>
-              <h3 className="eyebrow text-primary-foreground/70">
-                Follow us
-              </h3>
-              <ul className="mt-4 flex flex-wrap gap-3">
-                {SOCIALS.map((s) => (
-                  <li key={s.name}>
-                    <a
-                      href={s.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={s.name}
-                      title={s.name}
-                      className="inline-flex size-11 items-center justify-center rounded-md bg-primary-foreground/10 text-primary-foreground ring-1 ring-primary-foreground/25 transition-colors hover:bg-primary-foreground hover:text-primary"
+                <ul className="mt-4 space-y-2">
+                  {p.items.map((item, i) => (
+                    <li
+                      key={i}
+                      className="flex items-start gap-2.5 text-xs sm:text-sm leading-relaxed text-slate-600 dark:text-slate-300"
                     >
-                      <s.icon className="size-5" />
-                    </a>
-                  </li>
-                ))}
-              </ul>
+                      <span className="mt-1.5 size-2 shrink-0 rounded-full bg-red-600" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs font-semibold text-slate-400">
+                <span>{p.category}</span>
+                <CheckCircle2 className="size-4 text-emerald-500" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* SECTION 6: GALLERY & LIGHTBOX / معرض الصور والأنيميشن الاحترافي (Carousel Slider) */}
+      <section id="gallery" className="border-y border-slate-200 bg-slate-100/60 py-16 sm:py-24 dark:border-slate-800 dark:bg-[#0f1b36]">
+        <div className="mx-auto max-w-7xl px-4 sm:px-8">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+            <div>
+              <span className="eyebrow text-red-600 dark:text-red-400 font-bold">{t.gallery.kicker}</span>
+              <h2 className="mt-2 text-2xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+                {t.gallery.title}
+              </h2>
+              <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+                {t.gallery.subtitle}
+              </p>
+              <div className="mt-3 h-1 w-20 bg-red-600 rounded-full" />
+            </div>
+
+            {/* Carousel Controls Header */}
+            <div className="flex items-center gap-3 self-start md:self-auto">
+              <button
+                onClick={prevSlidePair}
+                aria-label="Previous Slide Pair"
+                className="flex size-11 items-center justify-center rounded-2xl border border-slate-300 bg-white text-slate-800 shadow-sm transition-all hover:bg-red-600 hover:text-white hover:border-red-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-red-600"
+              >
+                {lang === "ar" ? <ChevronRight className="size-6" /> : <ChevronLeft className="size-6" />}
+              </button>
+
+              {/* Slide Pair Step Indicator */}
+              <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs font-bold text-slate-700 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200">
+                <span>{Math.floor(slideIndex / 2) + 1}</span>
+                <span className="text-slate-400">/</span>
+                <span>{Math.ceil(galleryItems.length / 2)}</span>
+              </div>
+
+              <button
+                onClick={nextSlidePair}
+                aria-label="Next Slide Pair"
+                className="flex size-11 items-center justify-center rounded-2xl border border-slate-300 bg-white text-slate-800 shadow-sm transition-all hover:bg-red-600 hover:text-white hover:border-red-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-red-600"
+              >
+                {lang === "ar" ? <ChevronLeft className="size-6" /> : <ChevronRight className="size-6" />}
+              </button>
             </div>
           </div>
-          <p className="mt-10 text-xs text-primary-foreground/60">
-            Red Sea For Roads Company — 10 Al-Wahda Street, Al-Manshya,
-            Hurghada, Red Sea Governorate, Egypt
+
+          {/* Interactive Dual-Card Carousel Frame */}
+          <div
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            onTouchStart={() => setIsPaused(true)}
+            onTouchEnd={() => setIsPaused(false)}
+            className="relative overflow-hidden rounded-3xl"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {[0, 1].map((offset) => {
+                const itemIndex = (slideIndex + offset) % galleryItems.length;
+                const g = galleryItems[itemIndex];
+                if (!g) return null;
+
+                return (
+                  <div
+                    key={g.id + "-" + slideIndex}
+                    onClick={() => openLightbox(g)}
+                    className="group relative cursor-pointer overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-panel transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl dark:border-slate-800 dark:bg-slate-900 animate-in fade-in zoom-in-95 duration-300"
+                  >
+                    {/* High-Res Image Display */}
+                    <div className="h-72 sm:h-96 w-full overflow-hidden bg-slate-950">
+                      <img
+                        src={g.src}
+                        alt={g.title}
+                        width={1400}
+                        height={1000}
+                        loading="lazy"
+                        decoding="async"
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                    </div>
+
+                    {/* Gradient Overlay & Content Badge */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent flex flex-col justify-between p-6 sm:p-8 text-white">
+                      <div className="flex items-center justify-between">
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-red-600 px-3.5 py-1.5 text-xs font-bold text-white shadow-md">
+                          <Sparkles className="size-3.5 text-red-200" />
+                          <span>{g.category}</span>
+                        </span>
+                        <div className="flex size-10 items-center justify-center rounded-2xl bg-slate-900/80 backdrop-blur-md text-white border border-slate-700 group-hover:bg-red-600 transition-colors">
+                          <ZoomIn className="size-5" />
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <h3 className="text-lg sm:text-2xl font-bold text-white leading-snug group-hover:text-red-300 transition-colors">
+                          {g.title}
+                        </h3>
+                        <p className="text-xs sm:text-sm text-slate-300 line-clamp-2 leading-relaxed">
+                          {g.desc}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Dots Carousel Pagination Bar */}
+            <div className="mt-8 flex items-center justify-center gap-2">
+              {Array.from({ length: Math.ceil(galleryItems.length / 2) }).map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setSlideIndex(idx * 2)}
+                  aria-label={`Go to slide pair ${idx + 1}`}
+                  className={`h-2.5 rounded-full transition-all duration-300 ${Math.floor(slideIndex / 2) === idx
+                    ? "w-8 bg-red-600"
+                    : "w-2.5 bg-slate-300 dark:bg-slate-700 hover:bg-slate-400"
+                    }`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* LIGHTBOX MODAL */}
+      {activeImage && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 p-4 backdrop-blur-md animate-in fade-in duration-200">
+          <div className="relative max-w-4xl w-full overflow-hidden rounded-3xl border border-slate-800 bg-slate-900 shadow-2xl">
+            {/* Close Button */}
+            <button
+              onClick={closeLightbox}
+              className="absolute top-4 right-4 z-10 flex size-10 items-center justify-center rounded-full bg-slate-950/80 text-white hover:bg-red-600 transition-colors"
+            >
+              <X className="size-6" />
+            </button>
+
+            {/* Prev/Next Buttons */}
+            <button
+              onClick={prevLightboxImage}
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 flex size-11 items-center justify-center rounded-full bg-slate-950/80 text-white hover:bg-red-600 transition-colors"
+            >
+              {lang === "ar" ? <ChevronRight className="size-6" /> : <ChevronLeft className="size-6" />}
+            </button>
+            <button
+              onClick={nextLightboxImage}
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 flex size-11 items-center justify-center rounded-full bg-slate-950/80 text-white hover:bg-red-600 transition-colors"
+            >
+              {lang === "ar" ? <ChevronLeft className="size-6" /> : <ChevronRight className="size-6" />}
+            </button>
+
+            {/* Modal Image Display */}
+            <div className="max-h-[70vh] overflow-hidden bg-black flex items-center justify-center">
+              <img
+                src={activeImage.src}
+                alt={activeImage.title}
+                className="max-h-[70vh] w-auto object-contain"
+              />
+            </div>
+
+            {/* Modal Info Footer */}
+            <div className="p-6 bg-slate-900 text-white">
+              <span className="rounded-full bg-red-600 px-3 py-1 text-xs font-bold text-white">
+                {activeImage.category}
+              </span>
+              <h3 className="mt-3 text-lg font-bold text-white sm:text-xl">
+                {activeImage.title}
+              </h3>
+              <p className="mt-1 text-xs sm:text-sm text-slate-300">
+                {activeImage.desc}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* SECTION 7: QUALITY POLICY & OBJECTIVES / سياسة وأهداف الجودة */}
+      <section id="quality" className="mx-auto max-w-7xl px-4 py-16 sm:px-8 sm:py-24">
+        <div className="mb-10 text-center sm:text-start">
+          <span className="eyebrow text-red-600 dark:text-red-400 font-bold">{t.quality.kicker}</span>
+          <h2 className="mt-2 text-2xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+            {t.quality.title}
+          </h2>
+          <p className="mt-3 max-w-3xl text-sm sm:text-base leading-relaxed text-slate-600 dark:text-slate-300">
+            {t.quality.intro}
           </p>
+          <div className="mt-3 h-1 w-20 bg-red-600 rounded-full sm:mx-0 mx-auto" />
         </div>
 
-        {/* floating WhatsApp */}
+        {/* Quality Principles Cards */}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {t.quality.principles.map((q, idx) => (
+            <div
+              key={idx}
+              className="rounded-2xl border border-slate-200/90 bg-white p-6 shadow-card transition-all hover:border-red-500/40 dark:border-slate-800 dark:bg-[#132244]"
+            >
+              <div className="flex size-10 items-center justify-center rounded-xl bg-red-100 text-red-600 dark:bg-red-950/80 dark:text-red-400 mb-4">
+                <CheckCircle2 className="size-5" />
+              </div>
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                {q.title}
+              </h3>
+              <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                {q.body}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* Phased Objectives Box */}
+        <div className="mt-16 rounded-3xl border border-slate-200 bg-slate-100/80 p-8 shadow-card dark:border-slate-800 dark:bg-[#0f172a]">
+          <span className="eyebrow text-red-600 dark:text-red-400 font-bold">{t.objectives.kicker}</span>
+          <h3 className="mt-2 text-xl sm:text-3xl font-bold text-slate-900 dark:text-white">
+            {t.objectives.title}
+          </h3>
+          <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+            {t.objectives.intro}
+          </p>
+
+          <div className="mt-8 space-y-6">
+            {t.objectives.items.map((o) => (
+              <div
+                key={o.no}
+                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-card dark:border-slate-800 dark:bg-[#132244]"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="flex size-8 items-center justify-center rounded-xl bg-red-600 text-xs font-black text-white">
+                    {o.no}
+                  </span>
+                  <h4 className="text-base font-bold text-slate-900 dark:text-white">
+                    {o.title}
+                  </h4>
+                </div>
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  {o.points.map((pt, i) => (
+                    <div key={i} className="flex items-start gap-2 text-xs sm:text-sm text-slate-700 dark:text-slate-200">
+                      <span className="mt-1 size-1.5 shrink-0 rounded-full bg-red-600" />
+                      <span>{pt}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 8: TEAM / الهيكل التنظيمي */}
+      <section id="team" className="border-y border-slate-200 bg-slate-100/60 py-16 sm:py-24 dark:border-slate-800 dark:bg-[#0f1b36]">
+        <div className="mx-auto max-w-7xl px-4 sm:px-8">
+          <div className="mb-10 text-center sm:text-start">
+            <span className="eyebrow text-red-600 dark:text-red-400 font-bold">{t.team.kicker}</span>
+            <h2 className="mt-2 text-2xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+              {t.team.title}
+            </h2>
+            <div className="mt-3 h-1 w-20 bg-red-600 rounded-full sm:mx-0 mx-auto" />
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-3">
+            {t.team.members.map((m, idx) => (
+              <div
+                key={idx}
+                className="rounded-2xl border border-slate-200 bg-white p-7 shadow-card text-center dark:border-slate-800 dark:bg-[#132244] group hover:-translate-y-1 transition-all"
+              >
+                <div className="mx-auto flex size-16 items-center justify-center rounded-2xl bg-slate-900 text-xl font-bold text-white shadow-md dark:bg-slate-800 group-hover:bg-red-600 transition-colors">
+                  {m.name ? m.name.charAt(0) : "م"}
+                </div>
+                <div className="mt-4 text-xs font-bold uppercase tracking-wider text-red-600 dark:text-red-400">
+                  {m.role}
+                </div>
+                <div className="mt-1 text-lg font-bold text-slate-900 dark:text-white">
+                  {m.name}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 grid gap-6 sm:grid-cols-2">
+            {t.team.stats.map((s, idx) => (
+              <div
+                key={idx}
+                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-card text-center dark:border-slate-800 dark:bg-[#132244]"
+              >
+                <div className="text-xs font-bold text-slate-500 dark:text-slate-400">{s.label}</div>
+                <div className="mt-2 text-3xl font-extrabold text-red-600 dark:text-red-400">{s.value}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION: CONTACT FORM / نموذج التواصل */}
+      <section id="contact-form" className="bg-white py-16 sm:py-20 dark:bg-[#0b1329]">
+        <div className="mx-auto max-w-3xl px-4 sm:px-8">
+          {/* Header */}
+          <div className="mb-10 text-center">
+            <span className="eyebrow text-red-600 dark:text-red-400 font-bold">
+              {lang === "ar" ? "تواصل معنا" : "Contact Us"}
+            </span>
+            <h2 className="mt-2 text-2xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+              {t.contact.title}
+            </h2>
+            <p className="mt-3 text-sm text-slate-500 dark:text-slate-400">
+              {lang === "ar"
+                ? "أرسل لنا رسالتك مباشرةً وسيتواصل معك فريقنا في أقرب وقت ممكن."
+                : "Send us a message and our team will get back to you as soon as possible."}
+            </p>
+            <div className="mt-4 mx-auto h-1 w-16 bg-red-600 rounded-full" />
+          </div>
+
+          {contactSent ? (
+            /* ──── Success Confirmation ──── */
+            <div className="flex flex-col items-center gap-4 rounded-3xl border border-emerald-200 bg-emerald-50 p-10 text-center dark:border-emerald-800 dark:bg-emerald-950/30 animate-in fade-in zoom-in-95 duration-300">
+              <div className="flex size-16 items-center justify-center rounded-full bg-emerald-600 text-white shadow-lg">
+                <CheckCircle2 className="size-8" />
+              </div>
+              <h3 className="text-xl font-bold text-emerald-700 dark:text-emerald-300">
+                {lang === "ar" ? "تم إرسال رسالتك بنجاح!" : "Message Sent Successfully!"}
+              </h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                {lang === "ar"
+                  ? "شكراً لتواصلك معنا. سيتم فتح بريدك الإلكتروني لإرسال الرسالة إذا لم تُرسل تلقائياً."
+                  : "Thank you for reaching out. Your email client will open to send the message if it didn't send automatically."}
+              </p>
+              <button
+                onClick={() => { setContactSent(false); setContactName(""); setContactEmail(""); setContactMsg(""); }}
+                className="mt-2 rounded-xl border border-emerald-400 px-6 py-2 text-sm font-bold text-emerald-700 hover:bg-emerald-100 dark:text-emerald-300 dark:hover:bg-emerald-900/50 transition-colors"
+              >
+                {lang === "ar" ? "إرسال رسالة أخرى" : "Send Another Message"}
+              </button>
+            </div>
+          ) : (
+            /* ──── Contact Form ──── */
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                setContactSubmitting(true);
+                // ─── Web3Forms free API — no backend needed ───
+                // 1. Go to https://web3forms.com
+                // 2. Enter  to get your Access Key
+                // 3. Paste the key below:
+                const WEB3FORMS_KEY = "YOUR_ACCESS_KEY_HERE";
+                const subject = lang === "ar"
+                  ? `استفسار من ${contactName} - موقع البحر الأحمر للطرق`
+                  : `Inquiry from ${contactName} - Red Sea Roads Website`;
+                const message = lang === "ar"
+                  ? `الاسم: ${contactName}\nالبريد الإلكتروني: ${contactEmail}\n\nالرسالة:\n${contactMsg}`
+                  : `Name: ${contactName}\nEmail: ${contactEmail}\n\nMessage:\n${contactMsg}`;
+                try {
+                  const res = await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", Accept: "application/json" },
+                    body: JSON.stringify({
+                      access_key: WEB3FORMS_KEY,
+                      subject,
+                      message,
+                      from_name: contactName,
+                      reply_to: contactEmail,
+                    }),
+                  });
+                  const data = await res.json();
+                  if (data.success) {
+                    setContactSent(true);
+                  } else {
+                    alert(lang === "ar" ? "حدث خطأ، حاول مرة أخرى." : "Something went wrong, please try again.");
+                  }
+                } catch {
+                  alert(lang === "ar" ? "تعذر الإرسال، تحقق من الاتصال بالإنترنت." : "Sending failed, check your internet connection.");
+                } finally {
+                  setContactSubmitting(false);
+                }
+              }}
+              className="space-y-5"
+            >
+              {/* Name Field */}
+              <div>
+                <label htmlFor="contact-name" className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                  {lang === "ar" ? "الاسم الكامل *" : "Full Name *"}
+                </label>
+                <input
+                  id="contact-name"
+                  type="text"
+                  required
+                  value={contactName}
+                  onChange={(e) => setContactName(e.target.value)}
+                  placeholder={lang === "ar" ? "مثال: محمود وليد" : "e.g. John Smith"}
+                  className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-5 py-3.5 text-sm text-slate-800 placeholder-slate-400 outline-none transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-red-400"
+                />
+              </div>
+
+              {/* Email Field */}
+              <div>
+                <label htmlFor="contact-email" className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                  {lang === "ar" ? "بريدك الإلكتروني *" : "Your Email Address *"}
+                </label>
+                <input
+                  id="contact-email"
+                  type="email"
+                  required
+                  value={contactEmail}
+                  onChange={(e) => setContactEmail(e.target.value)}
+                  placeholder={lang === "ar" ? "example@email.com" : "example@email.com"}
+                  className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-5 py-3.5 text-sm text-slate-800 placeholder-slate-400 outline-none transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-red-400"
+                />
+              </div>
+
+              {/* Message Field */}
+              <div>
+                <label htmlFor="contact-msg" className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                  {lang === "ar" ? "رسالتك *" : "Your Message *"}
+                </label>
+                <textarea
+                  id="contact-msg"
+                  required
+                  rows={5}
+                  value={contactMsg}
+                  onChange={(e) => setContactMsg(e.target.value)}
+                  placeholder={lang === "ar" ? "اكتب رسالتك هنا أو وصفاً لمشروعك..." : "Describe your project or inquiry..."}
+                  className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-5 py-3.5 text-sm text-slate-800 placeholder-slate-400 outline-none resize-none transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-red-400"
+                />
+              </div>
+
+              {/* Send Button */}
+              <button
+                type="submit"
+                disabled={contactSubmitting}
+                className="w-full rounded-2xl bg-red-600 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-red-600/30 hover:bg-red-500 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2.5"
+              >
+                {contactSubmitting ? (
+                  <>
+                    <svg className="size-4 animate-spin" viewBox="0 0 24 24" fill="none">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                    </svg>
+                    <span>{lang === "ar" ? "جارٍ الإرسال..." : "Sending..."}</span>
+                  </>
+                ) : (
+                  <>
+                    <Mail className="size-4" />
+                    <span>{lang === "ar" ? "إرسال الرسالة" : "Send Message"}</span>
+                  </>
+                )}
+              </button>
+
+              <p className="text-center text-xs text-slate-400 dark:text-slate-500">
+                {lang === "ar"
+                  ? "الرسالة ستصل مباشرةً على بريد الشركة Info@redsearoadseg.com"
+                  : "Your message will be delivered directly to Info@redsearoadseg.com"}
+              </p>
+            </form>
+          )}
+        </div>
+      </section>
+
+      {/* FOOTER & CONTACT SECTION */}
+      <footer id="contact" className="relative bg-[#060c1a] text-slate-200 pt-16 pb-12 overflow-hidden">
+        <div className="mx-auto max-w-7xl px-4 sm:px-8">
+          <div className="grid gap-10 lg:grid-cols-2 border-b border-slate-800 pb-12">
+            {/* Left Info */}
+            <div className="space-y-6">
+              <img
+                src={IMAGES.logo}
+                alt="Red Sea For Roads Company Logo"
+                width={1584}
+                height={672}
+                className="h-14 w-auto rounded-xl bg-white p-3 shadow-md"
+              />
+              <p className="text-sm leading-relaxed text-slate-400 max-w-md">
+                {lang === "ar" 
+                  ? "مستعدون لبدء تنفيذ المشروعات وتوفير كافة التوريدات والاستشارات الفنية بسرعة واحترافية." 
+                  : "We are ready to execute your road and infrastructure projects with utmost speed, quality, and professionalism."}
+              </p>
+              <div className="space-y-3 text-sm">
+                <a
+                  href={CONTACT_INFO.domainUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-red-400 font-bold hover:underline"
+                >
+                  <ExternalLink className="size-4" />
+                  <span>{CONTACT_INFO.domain}</span>
+                </a>
+                <a
+                  href={`mailto:${CONTACT_INFO.email}`}
+                  className="flex items-center gap-2 hover:text-white transition-colors"
+                >
+                  <Mail className="size-4 text-red-500" />
+                  <span>{CONTACT_INFO.email}</span>
+                </a>
+                <div className="flex items-start gap-2 text-slate-300">
+                  <MapPin className="size-4 text-red-500 shrink-0 mt-1" />
+                  <span>{lang === "ar" ? CONTACT_INFO.locationAr : CONTACT_INFO.locationEn}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Quick Actions */}
+            <div className="flex flex-col justify-between space-y-6">
+
+
+              {/* Direct Contact Links */}
+              <div>
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-3">
+                  {lang === "ar" ? "التواصل المباشر والبريد" : "Direct Contact & Email"}
+                </span>
+                <div className="flex flex-wrap items-center gap-3">
+                  <a
+                    href={CONTACT_INFO.whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 rounded-xl bg-emerald-600/90 px-4 py-2.5 text-xs font-bold text-white hover:bg-emerald-500 shadow-md transition-all"
+                  >
+                    <WhatsAppIcon className="size-4" />
+                    <span>WhatsApp</span>
+                  </a>
+                  <a
+                    href={`mailto:${CONTACT_INFO.email}`}
+                    className="flex items-center gap-2 rounded-xl bg-slate-900 border border-slate-800 px-4 py-2.5 text-xs font-bold text-slate-200 hover:bg-red-600 hover:text-white hover:border-red-500 shadow-md transition-all"
+                  >
+                    <Mail className="size-4 text-red-500" />
+                    <span>{CONTACT_INFO.email}</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 text-center text-xs text-slate-500">
+            {lang === "ar" 
+              ? "جميع الحقوق محفوظة © شركة البحر الأحمر للمقاولات ورصف الطرق" 
+              : "All Rights Reserved © Red Sea for Roads & General Contracting Company"}          </div>
+        </div>
+
+        {/* FLOATING SPEED DIAL WHATSAPP BUTTON */}
         <a
-          href={`https://wa.me/${WHATSAPP_NUMBER}`}
+          href={CONTACT_INFO.whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Chat on WhatsApp"
-          className="fixed bottom-5 right-5 z-40 inline-flex size-14 items-center justify-center rounded-full bg-whatsapp text-primary-foreground shadow-panel transition-transform hover:scale-105"
+          className="fixed bottom-6 right-6 z-50 flex size-14 items-center justify-center rounded-full bg-emerald-600 text-white shadow-2xl transition-all duration-300 hover:scale-110 hover:bg-emerald-500 active:scale-95 group"
         >
           <WhatsAppIcon className="size-7" />
+          <span className="absolute -top-1 -right-1 flex size-4">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex size-4 rounded-full bg-emerald-500"></span>
+          </span>
         </a>
       </footer>
     </div>
   );
 }
 
-/* ---------- icons ---------- */
-
+/* Custom WhatsApp Icon */
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
       <path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.07-.3-.15-1.12-.41-2.14-1.32-.79-.71-1.32-1.58-1.47-1.88-.15-.3-.02-.46.13-.61.15-.15.35-.4.5-.6.15-.2.2-.35.3-.55.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.06 2.87 1.21 3.07.15.2 2.09 3.32 5.07 4.53.71.29 1.26.46 1.69.59.72.22 1.37.19 1.89.12.58-.09 1.79-.73 2.04-1.44.25-.71.25-1.31.17-1.44-.07-.13-.27-.2-.57-.35Z" />
       <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm0 18.13h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.19-.31a8.16 8.16 0 0 1-1.25-4.36c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.41a8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.21-8.26 8.21Z" />
-    </svg>
-  );
-}
-
-function FacebookIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
-      <path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.77l-.44 2.91h-2.33V22c4.78-.76 8.45-4.92 8.45-9.94Z" />
-    </svg>
-  );
-}
-
-function InstagramIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
-      <path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.96.24 2.65.51.71.28 1.31.65 1.9 1.24.6.6.97 1.19 1.25 1.9.27.69.46 1.48.51 2.65.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.24 1.96-.51 2.65a5.1 5.1 0 0 1-1.25 1.9c-.59.6-1.19.97-1.9 1.25-.69.27-1.48.46-2.65.51-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.96-.24-2.65-.51a5.12 5.12 0 0 1-1.9-1.25 5.1 5.1 0 0 1-1.24-1.9c-.27-.69-.46-1.48-.51-2.65C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.24-1.96.51-2.65.28-.71.65-1.3 1.24-1.9a5.12 5.12 0 0 1 1.9-1.24c.69-.27 1.48-.46 2.65-.51C8.42 2.17 8.8 2.16 12 2.16Zm0 1.8c-3.14 0-3.49.01-4.72.07-.94.04-1.45.2-1.79.33-.45.18-.77.39-1.11.72-.33.34-.54.66-.72 1.11-.13.34-.29.85-.33 1.79-.06 1.23-.07 1.58-.07 4.72s.01 3.49.07 4.72c.04.94.2 1.45.33 1.79.18.45.39.77.72 1.11.34.33.66.54 1.11.72.34.13.85.29 1.79.33 1.23.06 1.58.07 4.72.07s3.49-.01 4.72-.07c.94-.04 1.45-.2 1.79-.33.45-.18.77-.39 1.11-.72.33-.34.54-.66.72-1.11.13-.34.29-.85.33-1.79.06-1.23.07-1.58.07-4.72s-.01-3.49-.07-4.72c-.04-.94-.2-1.45-.33-1.79a2.98 2.98 0 0 0-.72-1.11 2.98 2.98 0 0 0-1.11-.72c-.34-.13-.85-.29-1.79-.33-1.23-.06-1.58-.07-4.72-.07Zm0 3.06a4.98 4.98 0 1 1 0 9.96 4.98 4.98 0 0 1 0-9.96Zm0 8.21a3.23 3.23 0 1 0 0-6.46 3.23 3.23 0 0 0 0 6.46Zm6.34-8.41a1.16 1.16 0 1 1-2.32 0 1.16 1.16 0 0 1 2.32 0Z" />
-    </svg>
-  );
-}
-
-function LinkedInIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
-      <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05a3.74 3.74 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12Zm1.78 13.02H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z" />
-    </svg>
-  );
-}
-
-function YouTubeIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
-      <path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.08 0 12 0 12s0 3.92.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.92 24 12 24 12s0-3.92-.5-5.81ZM9.55 15.57V8.43L15.82 12l-6.27 3.57Z" />
-    </svg>
-  );
-}
-
-function TikTokIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
-      <path d="M16.6 5.82A5.9 5.9 0 0 1 15.1 2h-3.2v13.4a2.65 2.65 0 1 1-1.9-2.55V9.6a5.85 5.85 0 1 0 5.1 5.8V9.19a8.9 8.9 0 0 0 4.9 1.48V7.47a5.86 5.86 0 0 1-3.4-1.65Z" />
     </svg>
   );
 }

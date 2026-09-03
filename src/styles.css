@@ -5,9 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Red Sea for Roads — design system taken from the company profile:
- * navy blue + red logo colours, light grey/white document surfaces.
- * Display & body: Poppins (matches the profile's geometric type).
+ * Red Sea for Roads — Executive Design System
+ * Deep Executive Navy Blue + Crimson Scarlet Red Accent + Alexandria/Cairo Arabic Typeface
  */
 
 @theme inline {
@@ -16,8 +15,8 @@
   --radius-lg: calc(var(--radius) + 4px);
   --radius-xl: calc(var(--radius) + 8px);
 
-  --font-display: "Poppins", system-ui, sans-serif;
-  --font-sans: "Poppins", system-ui, sans-serif;
+  --font-display: "Alexandria", "Cairo", "Poppins", system-ui, sans-serif;
+  --font-sans: "Alexandria", "Cairo", "Poppins", system-ui, sans-serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -42,44 +41,72 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --shadow-card: 0 18px 40px -28px oklch(0.25 0.06 265 / 0.45);
-  --shadow-panel: 0 30px 70px -40px oklch(0.25 0.06 265 / 0.6);
+  --shadow-card: 0 10px 30px -10px rgba(15, 35, 71, 0.08);
+  --shadow-panel: 0 25px 60px -15px rgba(15, 35, 71, 0.16);
+  --shadow-glow: 0 0 25px rgba(220, 38, 38, 0.25);
 }
 
 :root {
-  --radius: 0.5rem;
+  --radius: 0.625rem;
 
-  --background: oklch(0.975 0.004 265);
-  --foreground: oklch(0.26 0.03 265);
-  --surface: oklch(1 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.26 0.03 265);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.26 0.03 265);
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --surface: #ffffff;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
 
-  /* logo navy */
-  --primary: oklch(0.38 0.17 267);
-  --primary-foreground: oklch(0.99 0.002 265);
-  --primary-deep: oklch(0.29 0.14 267);
+  /* Executive Corporate Navy Blue */
+  --primary: #0f2347;
+  --primary-foreground: #ffffff;
+  --primary-deep: #09152a;
 
-  --secondary: oklch(0.93 0.008 265);
-  --secondary-foreground: oklch(0.32 0.05 265);
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f2347;
 
-  --muted: oklch(0.95 0.006 265);
-  --muted-foreground: oklch(0.53 0.02 265);
+  --muted: #f8fafc;
+  --muted-foreground: #64748b;
 
-  /* logo red */
-  --accent: oklch(0.55 0.22 27);
-  --accent-foreground: oklch(0.99 0.002 265);
+  /* Red Sea Brand Crimson Red */
+  --accent: #dc2626;
+  --accent-foreground: #ffffff;
 
-  --whatsapp: oklch(0.6 0.15 152);
+  --whatsapp: #25d366;
 
-  --destructive: oklch(0.55 0.22 27);
-  --destructive-foreground: oklch(0.99 0.002 265);
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
 
-  --border: oklch(0.38 0.17 267 / 0.14);
-  --input: oklch(0.38 0.17 267 / 0.2);
-  --ring: oklch(0.38 0.17 267);
+  --border: rgba(15, 35, 71, 0.1);
+  --input: rgba(15, 35, 71, 0.16);
+  --ring: #0f2347;
+}
+
+.dark {
+  --background: #0b1329;
+  --foreground: #f8fafc;
+  --surface: #111c35;
+  --card: #132244;
+  --card-foreground: #f8fafc;
+  --popover: #132244;
+  --popover-foreground: #f8fafc;
+
+  --primary: #ffffff;
+  --primary-foreground: #0b1329;
+  --primary-deep: #e2e8f0;
+
+  --secondary: #1a2b4e;
+  --secondary-foreground: #f8fafc;
+
+  --muted: #162648;
+  --muted-foreground: #94a3b8;
+
+  --accent: #ef4444;
+  --accent-foreground: #ffffff;
+
+  --border: rgba(255, 255, 255, 0.12);
+  --input: rgba(255, 255, 255, 0.18);
+  --ring: #ef4444;
 }
 
 @layer base {
@@ -96,22 +123,39 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   ::selection {
-    background-color: var(--color-primary);
-    color: var(--color-primary-foreground);
+    background-color: #dc2626;
+    color: #ffffff;
+  }
+
+  /* Custom smooth scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(100, 116, 139, 0.3);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(220, 38, 38, 0.6);
   }
 }
 
 @utility eyebrow {
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-/* red rule used as a section marker in the profile */
 @utility red-rule {
   background-color: var(--color-accent);
 }
@@ -119,7 +163,7 @@
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -128,5 +172,7 @@
 }
 
 @utility rise {
-  animation: rise 0.7s cubic-bezier(0.32, 0.72, 0, 1) both;
+  animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+
+

@@ -32,7 +32,7 @@ import {
   GALLERY_ITEMS_EN,
   CONTENT,
 } from "@/lib/translations";
-import { sendContactEmail, EMAILJS_CONFIG } from "@/lib/emailjs";
+import { sendContactEmail } from "@/lib/emailjs";
 
 
 export const Route = createFileRoute("/")({
@@ -1023,8 +1023,8 @@ function Index() {
               </h3>
               <p className="text-sm text-slate-600 dark:text-slate-300">
                 {lang === "ar"
-                  ? `شكراً لتواصلك معنا. تم إرسال رسالتك بنجاح إلى فريقنا (${EMAILJS_CONFIG.toEmail}) وسنتواصل معك في أقرب وقت.`
-                  : `Thank you for reaching out. Your message has been sent successfully to our team (${EMAILJS_CONFIG.toEmail}) and we will get back to you soon.`}
+                  ? "شكراً لتواصلك معنا. تم استلام رسالتك بنجاح وسيتواصل معك فريقنا في أقرب وقت."
+                  : "Thank you for reaching out. Your message has been sent successfully and our team will get back to you soon."}
               </p>
               <button
                 onClick={() => { setContactSent(false); setContactName(""); setContactEmail(""); setContactMsg(""); }}
@@ -1130,7 +1130,7 @@ function Index() {
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
                     </svg>
-                    <span>{lang === "ar" ? "جارٍ الإرسال عبر EmailJS..." : "Sending via EmailJS..."}</span>
+                    <span>{lang === "ar" ? "جارٍ الإرسال..." : "Sending..."}</span>
                   </>
                 ) : (
                   <>
@@ -1139,12 +1139,6 @@ function Index() {
                   </>
                 )}
               </button>
-
-              <p className="text-center text-xs text-slate-400 dark:text-slate-500">
-                {lang === "ar"
-                  ? `الرسالة ستصل مباشرةً على بريد: ${EMAILJS_CONFIG.toEmail}`
-                  : `Your message will be delivered directly to: ${EMAILJS_CONFIG.toEmail}`}
-              </p>
             </form>
           )}
         </div>

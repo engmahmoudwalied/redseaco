@@ -82,53 +82,62 @@ const LOGO_URL = `${SITE_URL}/logo.png`;
 const structuredData = {
   "@context": "https://schema.org",
   "@type": ["GeneralContractor", "LocalBusiness"],
-  "name": "شركة البحر الأحمر للمقاولات العامة ورصف الطرق",
-  "alternateName": ["Red Sea for Roads Company", "شركة البحر الأحمر للطرق", "Red Sea Roads"],
-  "url": SITE_URL,
-  "logo": LOGO_URL,
-  "image": OG_IMAGE,
-  "description": SITE_DESC,
-  "telephone": "+201000597912",
-  "email": "Info@redsearoadseg.com",
-  "address": {
+  name: "شركة البحر الأحمر للمقاولات العامة ورصف الطرق",
+  alternateName: ["Red Sea for Roads Company", "شركة البحر الأحمر للطرق", "Red Sea Roads"],
+  url: SITE_URL,
+  logo: LOGO_URL,
+  image: OG_IMAGE,
+  description: SITE_DESC,
+  telephone: "+201000597912",
+  email: "Info@redsearoadseg.com",
+  address: {
     "@type": "PostalAddress",
-    "streetAddress": "10 شارع الوحدة، المنشية",
-    "addressLocality": "الغردقة",
-    "addressRegion": "محافظة البحر الأحمر",
-    "addressCountry": "EG"
+    streetAddress: "10 شارع الوحدة، المنشية",
+    addressLocality: "الغردقة",
+    addressRegion: "محافظة البحر الأحمر",
+    addressCountry: "EG",
   },
-  "geo": {
+  geo: {
     "@type": "GeoCoordinates",
-    "latitude": "27.2579",
-    "longitude": "33.8116"
+    latitude: "27.2579",
+    longitude: "33.8116",
   },
-  "areaServed": [
-    "الغردقة", "Hurghada",
-    "رأس غارب", "Ras Ghareb",
-    "سهل حشيش", "Sahl Hasheesh",
-    "سفاجا", "Safaga",
-    "سوما باي", "Soma Bay",
-    "القصير", "El Quseir",
-    "مرسى علم", "Marsa Alam",
-    "الجونة", "El Gouna",
-    "محافظة البحر الأحمر", "Red Sea Governorate"
+  areaServed: [
+    "الغردقة",
+    "Hurghada",
+    "رأس غارب",
+    "Ras Ghareb",
+    "سهل حشيش",
+    "Sahl Hasheesh",
+    "سفاجا",
+    "Safaga",
+    "سوما باي",
+    "Soma Bay",
+    "القصير",
+    "El Quseir",
+    "مرسى علم",
+    "Marsa Alam",
+    "الجونة",
+    "El Gouna",
+    "محافظة البحر الأحمر",
+    "Red Sea Governorate",
   ],
-  "priceRange": "$$$",
-  "openingHours": "Mo-Th 08:00-17:00, Sa-Su 08:00-17:00",
-  "sameAs": [
+  priceRange: "$$$",
+  openingHours: "Mo-Th 08:00-17:00, Sa-Su 08:00-17:00",
+  sameAs: [
     "https://www.facebook.com",
     "https://www.instagram.com",
     "https://www.linkedin.com",
-    "https://www.youtube.com"
-  ]
+    "https://www.youtube.com",
+  ],
 };
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
+    title: SITE_TITLE,
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, maximum-scale=5" },
-      { title: SITE_TITLE },
       { name: "description", content: SITE_DESC },
       {
         name: "keywords",
@@ -136,8 +145,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "شركة البحر الأحمر للمقاولات, شركة البحر الاحمر للطرق, شركة الطرق والنقل, مقاولات رصف الطرق الغردقة, رصف طرق البحر الاحمر, شركة مقاولات الغردقة, Red Sea for Roads, شركة البحر الاحمر للمقاولات العامة, مقاول طرق البحر الاحمر, رصف اسفلت, عزل مباني وخزانات, Red Sea Roads, redsearoadseg.com",
       },
       { name: "author", content: "Red Sea for Roads Company" },
-      { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
-      { name: "googlebot", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
+      {
+        name: "robots",
+        content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      },
+      {
+        name: "googlebot",
+        content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
+      },
       { property: "og:site_name", content: "شركة البحر الأحمر للمقاولات ورصف الطرق" },
       { property: "og:title", content: SITE_TITLE },
       { property: "og:description", content: SITE_DESC },
@@ -149,6 +164,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
       { property: "og:image:alt", content: "شركة البحر الأحمر للمقاولات ورصف الطرق" },
+      { itemProp: "name", content: SITE_TITLE },
+      { itemProp: "description", content: SITE_DESC },
+      { itemProp: "image", content: OG_IMAGE },
       { property: "og:locale", content: "ar_EG" },
       { property: "og:locale:alternate", content: "en_US" },
       { name: "twitter:card", content: "summary_large_image" },

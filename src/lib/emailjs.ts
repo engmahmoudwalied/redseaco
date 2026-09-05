@@ -12,9 +12,10 @@ export const EMAILJS_CONFIG = {
   serviceId: (import.meta.env["VITE_EMAILJS_SERVICE_ID"] as string | undefined) || "",
   templateId: (import.meta.env["VITE_EMAILJS_TEMPLATE_ID"] as string | undefined) || "",
   publicKey: (import.meta.env["VITE_EMAILJS_PUBLIC_KEY"] as string | undefined) || "",
-  toEmail: (import.meta.env["VITE_EMAILJS_TO_EMAIL"] as string | undefined) || "mohamedkhaled74222310@gmail.com",
+  toEmail:
+    (import.meta.env["VITE_EMAILJS_TO_EMAIL"] as string | undefined) ||
+    "mohamedkhaled74222310@gmail.com",
 };
-
 
 /**
  * Validates whether EmailJS environment variables are configured.
@@ -26,21 +27,25 @@ export function isEmailJSConfigured(): boolean {
     EMAILJS_CONFIG.publicKey &&
     EMAILJS_CONFIG.serviceId !== "your_service_id_here" &&
     EMAILJS_CONFIG.templateId !== "your_template_id_here" &&
-    EMAILJS_CONFIG.publicKey !== "your_public_key_here"
+    EMAILJS_CONFIG.publicKey !== "your_public_key_here",
   );
 }
 
 /**
  * Sends a contact form email via EmailJS SDK with fallback to direct REST API.
  */
-export async function sendContactEmail(data: ContactFormData): Promise<{ success: boolean; message?: string }> {
+export async function sendContactEmail(
+  data: ContactFormData,
+): Promise<{ success: boolean; message?: string }> {
   const serviceId = EMAILJS_CONFIG.serviceId;
   const templateId = EMAILJS_CONFIG.templateId;
   const publicKey = EMAILJS_CONFIG.publicKey;
   const toEmail = EMAILJS_CONFIG.toEmail;
 
   if (!isEmailJSConfigured()) {
-    console.warn("EmailJS credentials are not configured in .env. Please set VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID, and VITE_EMAILJS_PUBLIC_KEY.");
+    console.warn(
+      "EmailJS credentials are not configured in .env. Please set VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID, and VITE_EMAILJS_PUBLIC_KEY.",
+    );
     return {
       success: false,
       message: "EmailJS is not configured. Please add your EmailJS keys in the .env file.",
@@ -65,23 +70,18 @@ export async function sendContactEmail(data: ContactFormData): Promise<{ success
 
   try {
     // Attempt sending via @emailjs/browser SDK
-    const response = await emailjs.send(
-      serviceId,
-      templateId,
-      templateParams,
-      {
-        publicKey: publicKey,
-      }
-    );
+    const response = await emailjs.send(serviceId, templateId, templateParams, {
+      publicKey: publicKey,
+    });
 
     if (response.status === 200 || response.text === "OK") {
       return { success: true };
     }
-    
+
     throw new Error(`EmailJS responded with status: ${response.status}`);
   } catch (error: any) {
     console.error("EmailJS SDK error, attempting direct API fallback...", error);
-    
+
     // Direct API fallback
     try {
       const apiResponse = await fetch("https://api.emailjs.com/api/v1.0/email/send", {

@@ -34,7 +34,6 @@ import {
 } from "@/lib/translations";
 import { sendContactEmail } from "@/lib/emailjs";
 
-
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -126,7 +125,7 @@ function Index() {
 
   const prevSlidePair = () => {
     setSlideIndex((prev) =>
-      prev - 2 < 0 ? Math.floor((galleryItems.length - 1) / 2) * 2 : prev - 2
+      prev - 2 < 0 ? Math.floor((galleryItems.length - 1) / 2) * 2 : prev - 2,
     );
   };
 
@@ -146,13 +145,21 @@ function Index() {
   const filteredProjects = useMemo(() => {
     if (projectCategory === "all") return t.projects.items;
     if (projectCategory === "roads")
-      return t.projects.items.filter((p) => p.category.includes("طرق") || p.category.includes("Roads"));
+      return t.projects.items.filter(
+        (p) => p.category.includes("طرق") || p.category.includes("Roads"),
+      );
     if (projectCategory === "insulation")
-      return t.projects.items.filter((p) => p.category.includes("عزل") || p.category.includes("Insulation"));
+      return t.projects.items.filter(
+        (p) => p.category.includes("عزل") || p.category.includes("Insulation"),
+      );
     if (projectCategory === "strengthening")
-      return t.projects.items.filter((p) => p.category.includes("تدعيم") || p.category.includes("Strengthening"));
+      return t.projects.items.filter(
+        (p) => p.category.includes("تدعيم") || p.category.includes("Strengthening"),
+      );
     if (projectCategory === "supply")
-      return t.projects.items.filter((p) => p.category.includes("توريد") || p.category.includes("Supplies"));
+      return t.projects.items.filter(
+        (p) => p.category.includes("توريد") || p.category.includes("Supplies"),
+      );
     return t.projects.items;
   }, [projectCategory, t]);
 
@@ -265,7 +272,11 @@ function Index() {
               className="flex size-9 items-center justify-center rounded-lg border border-slate-200 bg-slate-100 text-slate-700 transition-all hover:border-slate-300 hover:bg-slate-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
               title={theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
             >
-              {theme === "light" ? <Moon className="size-4 text-slate-700" /> : <Sun className="size-4 text-amber-400" />}
+              {theme === "light" ? (
+                <Moon className="size-4 text-slate-700" />
+              ) : (
+                <Sun className="size-4 text-amber-400" />
+              )}
             </button>
 
             {/* Language Switcher Button */}
@@ -337,7 +348,10 @@ function Index() {
       </header>
 
       {/* HERO SECTION */}
-      <section id="top" className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-slate-950 text-white">
+      <section
+        id="top"
+        className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-slate-950 text-white"
+      >
         {/* Background Image with Gradient Overlay */}
         <div className="absolute inset-0 z-0">
           <img
@@ -420,7 +434,9 @@ function Index() {
       {/* SECTION 1: PROFILE / بيانات الشركة */}
       <section id="profile" className="mx-auto max-w-7xl px-4 py-16 sm:px-8 sm:py-24">
         <div className="mb-10 text-center sm:text-start">
-          <span className="eyebrow text-red-600 dark:text-red-400 font-bold">{t.profile.kicker}</span>
+          <span className="eyebrow text-red-600 dark:text-red-400 font-bold">
+            {t.profile.kicker}
+          </span>
           <h2 className="mt-2 text-2xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
             {t.profile.title}
           </h2>
@@ -446,13 +462,18 @@ function Index() {
       </section>
 
       {/* SECTION 2: VISION & MISSION / الرؤية والرسالة */}
-      <section id="vision" className="border-y border-slate-200 bg-slate-100/60 py-16 sm:py-24 dark:border-slate-800 dark:bg-[#0f1b36]">
+      <section
+        id="vision"
+        className="border-y border-slate-200 bg-slate-100/60 py-16 sm:py-24 dark:border-slate-800 dark:bg-[#0f1b36]"
+      >
         <div className="mx-auto max-w-7xl px-4 sm:px-8">
           <div className="grid gap-12 lg:grid-cols-2 items-center">
             {/* Vision & Mission Text Cards */}
             <div className="space-y-8">
               <div className="mb-6">
-                <span className="eyebrow text-red-600 dark:text-red-400 font-bold">{t.vision.kicker}</span>
+                <span className="eyebrow text-red-600 dark:text-red-400 font-bold">
+                  {t.vision.kicker}
+                </span>
                 <h2 className="mt-2 text-2xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
                   {t.vision.title}
                 </h2>
@@ -518,7 +539,9 @@ function Index() {
       {/* SECTION 3: CORE VALUES / القيم الجوهرية */}
       <section id="values" className="mx-auto max-w-7xl px-4 py-16 sm:px-8 sm:py-24">
         <div className="mb-12 text-center sm:text-start">
-          <span className="eyebrow text-red-600 dark:text-red-400 font-bold">{t.values.kicker}</span>
+          <span className="eyebrow text-red-600 dark:text-red-400 font-bold">
+            {t.values.kicker}
+          </span>
           <h2 className="mt-2 text-2xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
             {t.values.title}
           </h2>
@@ -549,12 +572,17 @@ function Index() {
       </section>
 
       {/* SECTION 4: CLASSIFICATION & SERVICES / التصنيف والخدمات */}
-      <section id="classification" className="border-y border-slate-200 bg-slate-100/60 py-16 sm:py-24 dark:border-slate-800 dark:bg-[#0f1b36]">
+      <section
+        id="classification"
+        className="border-y border-slate-200 bg-slate-100/60 py-16 sm:py-24 dark:border-slate-800 dark:bg-[#0f1b36]"
+      >
         <div className="mx-auto max-w-7xl px-4 sm:px-8">
           <div className="grid gap-12 lg:grid-cols-2 items-center">
             {/* Services List */}
             <div>
-              <span className="eyebrow text-red-600 dark:text-red-400 font-bold">{t.classification.kicker}</span>
+              <span className="eyebrow text-red-600 dark:text-red-400 font-bold">
+                {t.classification.kicker}
+              </span>
               <h2 className="mt-2 text-2xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
                 {t.classification.title}
               </h2>
@@ -612,7 +640,9 @@ function Index() {
       {/* SECTION 5: PROJECTS PORTFOLIO / المشروعات السابقة */}
       <section id="projects" className="mx-auto max-w-7xl px-4 py-16 sm:px-8 sm:py-24">
         <div className="mb-10 text-center sm:text-start">
-          <span className="eyebrow text-red-600 dark:text-red-400 font-bold">{t.projects.kicker}</span>
+          <span className="eyebrow text-red-600 dark:text-red-400 font-bold">
+            {t.projects.kicker}
+          </span>
           <h2 className="mt-2 text-2xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
             {t.projects.title}
           </h2>
@@ -623,46 +653,51 @@ function Index() {
         <div className="mb-8 flex flex-wrap items-center gap-2">
           <button
             onClick={() => setProjectCategory("all")}
-            className={`rounded-xl px-4 py-2 text-xs font-bold transition-all ${projectCategory === "all"
-              ? "bg-red-600 text-white shadow-md"
-              : "bg-slate-200/80 text-slate-700 hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-200"
-              }`}
+            className={`rounded-xl px-4 py-2 text-xs font-bold transition-all ${
+              projectCategory === "all"
+                ? "bg-red-600 text-white shadow-md"
+                : "bg-slate-200/80 text-slate-700 hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-200"
+            }`}
           >
             {t.projects.filterAll}
           </button>
           <button
             onClick={() => setProjectCategory("roads")}
-            className={`rounded-xl px-4 py-2 text-xs font-bold transition-all ${projectCategory === "roads"
-              ? "bg-red-600 text-white shadow-md"
-              : "bg-slate-200/80 text-slate-700 hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-200"
-              }`}
+            className={`rounded-xl px-4 py-2 text-xs font-bold transition-all ${
+              projectCategory === "roads"
+                ? "bg-red-600 text-white shadow-md"
+                : "bg-slate-200/80 text-slate-700 hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-200"
+            }`}
           >
             {t.projects.filterRoads}
           </button>
           <button
             onClick={() => setProjectCategory("insulation")}
-            className={`rounded-xl px-4 py-2 text-xs font-bold transition-all ${projectCategory === "insulation"
-              ? "bg-red-600 text-white shadow-md"
-              : "bg-slate-200/80 text-slate-700 hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-200"
-              }`}
+            className={`rounded-xl px-4 py-2 text-xs font-bold transition-all ${
+              projectCategory === "insulation"
+                ? "bg-red-600 text-white shadow-md"
+                : "bg-slate-200/80 text-slate-700 hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-200"
+            }`}
           >
             {t.projects.filterInsulation}
           </button>
           <button
             onClick={() => setProjectCategory("strengthening")}
-            className={`rounded-xl px-4 py-2 text-xs font-bold transition-all ${projectCategory === "strengthening"
-              ? "bg-red-600 text-white shadow-md"
-              : "bg-slate-200/80 text-slate-700 hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-200"
-              }`}
+            className={`rounded-xl px-4 py-2 text-xs font-bold transition-all ${
+              projectCategory === "strengthening"
+                ? "bg-red-600 text-white shadow-md"
+                : "bg-slate-200/80 text-slate-700 hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-200"
+            }`}
           >
             {t.projects.filterStrengthening}
           </button>
           <button
             onClick={() => setProjectCategory("supply")}
-            className={`rounded-xl px-4 py-2 text-xs font-bold transition-all ${projectCategory === "supply"
-              ? "bg-red-600 text-white shadow-md"
-              : "bg-slate-200/80 text-slate-700 hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-200"
-              }`}
+            className={`rounded-xl px-4 py-2 text-xs font-bold transition-all ${
+              projectCategory === "supply"
+                ? "bg-red-600 text-white shadow-md"
+                : "bg-slate-200/80 text-slate-700 hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-200"
+            }`}
           >
             {t.projects.filterSupply}
           </button>
@@ -709,11 +744,16 @@ function Index() {
       </section>
 
       {/* SECTION 6: GALLERY & LIGHTBOX / معرض الصور والأنيميشن الاحترافي (Carousel Slider) */}
-      <section id="gallery" className="border-y border-slate-200 bg-slate-100/60 py-16 sm:py-24 dark:border-slate-800 dark:bg-[#0f1b36]">
+      <section
+        id="gallery"
+        className="border-y border-slate-200 bg-slate-100/60 py-16 sm:py-24 dark:border-slate-800 dark:bg-[#0f1b36]"
+      >
         <div className="mx-auto max-w-7xl px-4 sm:px-8">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
             <div>
-              <span className="eyebrow text-red-600 dark:text-red-400 font-bold">{t.gallery.kicker}</span>
+              <span className="eyebrow text-red-600 dark:text-red-400 font-bold">
+                {t.gallery.kicker}
+              </span>
               <h2 className="mt-2 text-2xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
                 {t.gallery.title}
               </h2>
@@ -730,7 +770,11 @@ function Index() {
                 aria-label="Previous Slide Pair"
                 className="flex size-11 items-center justify-center rounded-2xl border border-slate-300 bg-white text-slate-800 shadow-sm transition-all hover:bg-red-600 hover:text-white hover:border-red-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-red-600"
               >
-                {lang === "ar" ? <ChevronRight className="size-6" /> : <ChevronLeft className="size-6" />}
+                {lang === "ar" ? (
+                  <ChevronRight className="size-6" />
+                ) : (
+                  <ChevronLeft className="size-6" />
+                )}
               </button>
 
               {/* Slide Pair Step Indicator */}
@@ -745,7 +789,11 @@ function Index() {
                 aria-label="Next Slide Pair"
                 className="flex size-11 items-center justify-center rounded-2xl border border-slate-300 bg-white text-slate-800 shadow-sm transition-all hover:bg-red-600 hover:text-white hover:border-red-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-red-600"
               >
-                {lang === "ar" ? <ChevronLeft className="size-6" /> : <ChevronRight className="size-6" />}
+                {lang === "ar" ? (
+                  <ChevronLeft className="size-6" />
+                ) : (
+                  <ChevronRight className="size-6" />
+                )}
               </button>
             </div>
           </div>
@@ -816,10 +864,11 @@ function Index() {
                   key={idx}
                   onClick={() => setSlideIndex(idx * 2)}
                   aria-label={`Go to slide pair ${idx + 1}`}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${Math.floor(slideIndex / 2) === idx
-                    ? "w-8 bg-red-600"
-                    : "w-2.5 bg-slate-300 dark:bg-slate-700 hover:bg-slate-400"
-                    }`}
+                  className={`h-2.5 rounded-full transition-all duration-300 ${
+                    Math.floor(slideIndex / 2) === idx
+                      ? "w-8 bg-red-600"
+                      : "w-2.5 bg-slate-300 dark:bg-slate-700 hover:bg-slate-400"
+                  }`}
                 />
               ))}
             </div>
@@ -844,13 +893,21 @@ function Index() {
               onClick={prevLightboxImage}
               className="absolute left-4 top-1/2 -translate-y-1/2 z-10 flex size-11 items-center justify-center rounded-full bg-slate-950/80 text-white hover:bg-red-600 transition-colors"
             >
-              {lang === "ar" ? <ChevronRight className="size-6" /> : <ChevronLeft className="size-6" />}
+              {lang === "ar" ? (
+                <ChevronRight className="size-6" />
+              ) : (
+                <ChevronLeft className="size-6" />
+              )}
             </button>
             <button
               onClick={nextLightboxImage}
               className="absolute right-4 top-1/2 -translate-y-1/2 z-10 flex size-11 items-center justify-center rounded-full bg-slate-950/80 text-white hover:bg-red-600 transition-colors"
             >
-              {lang === "ar" ? <ChevronLeft className="size-6" /> : <ChevronRight className="size-6" />}
+              {lang === "ar" ? (
+                <ChevronLeft className="size-6" />
+              ) : (
+                <ChevronRight className="size-6" />
+              )}
             </button>
 
             {/* Modal Image Display */}
@@ -867,12 +924,8 @@ function Index() {
               <span className="rounded-full bg-red-600 px-3 py-1 text-xs font-bold text-white">
                 {activeImage.category}
               </span>
-              <h3 className="mt-3 text-lg font-bold text-white sm:text-xl">
-                {activeImage.title}
-              </h3>
-              <p className="mt-1 text-xs sm:text-sm text-slate-300">
-                {activeImage.desc}
-              </p>
+              <h3 className="mt-3 text-lg font-bold text-white sm:text-xl">{activeImage.title}</h3>
+              <p className="mt-1 text-xs sm:text-sm text-slate-300">{activeImage.desc}</p>
             </div>
           </div>
         </div>
@@ -881,7 +934,9 @@ function Index() {
       {/* SECTION 7: QUALITY POLICY & OBJECTIVES / سياسة وأهداف الجودة */}
       <section id="quality" className="mx-auto max-w-7xl px-4 py-16 sm:px-8 sm:py-24">
         <div className="mb-10 text-center sm:text-start">
-          <span className="eyebrow text-red-600 dark:text-red-400 font-bold">{t.quality.kicker}</span>
+          <span className="eyebrow text-red-600 dark:text-red-400 font-bold">
+            {t.quality.kicker}
+          </span>
           <h2 className="mt-2 text-2xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
             {t.quality.title}
           </h2>
@@ -901,9 +956,7 @@ function Index() {
               <div className="flex size-10 items-center justify-center rounded-xl bg-red-100 text-red-600 dark:bg-red-950/80 dark:text-red-400 mb-4">
                 <CheckCircle2 className="size-5" />
               </div>
-              <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                {q.title}
-              </h3>
+              <h3 className="text-base font-bold text-slate-900 dark:text-white">{q.title}</h3>
               <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-600 dark:text-slate-300">
                 {q.body}
               </p>
@@ -913,7 +966,9 @@ function Index() {
 
         {/* Phased Objectives Box */}
         <div className="mt-16 rounded-3xl border border-slate-200 bg-slate-100/80 p-8 shadow-card dark:border-slate-800 dark:bg-[#0f172a]">
-          <span className="eyebrow text-red-600 dark:text-red-400 font-bold">{t.objectives.kicker}</span>
+          <span className="eyebrow text-red-600 dark:text-red-400 font-bold">
+            {t.objectives.kicker}
+          </span>
           <h3 className="mt-2 text-xl sm:text-3xl font-bold text-slate-900 dark:text-white">
             {t.objectives.title}
           </h3>
@@ -931,13 +986,14 @@ function Index() {
                   <span className="flex size-8 items-center justify-center rounded-xl bg-red-600 text-xs font-black text-white">
                     {o.no}
                   </span>
-                  <h4 className="text-base font-bold text-slate-900 dark:text-white">
-                    {o.title}
-                  </h4>
+                  <h4 className="text-base font-bold text-slate-900 dark:text-white">{o.title}</h4>
                 </div>
                 <div className="mt-4 grid gap-3 sm:grid-cols-2">
                   {o.points.map((pt, i) => (
-                    <div key={i} className="flex items-start gap-2 text-xs sm:text-sm text-slate-700 dark:text-slate-200">
+                    <div
+                      key={i}
+                      className="flex items-start gap-2 text-xs sm:text-sm text-slate-700 dark:text-slate-200"
+                    >
                       <span className="mt-1 size-1.5 shrink-0 rounded-full bg-red-600" />
                       <span>{pt}</span>
                     </div>
@@ -950,10 +1006,15 @@ function Index() {
       </section>
 
       {/* SECTION 8: TEAM / الهيكل التنظيمي */}
-      <section id="team" className="border-y border-slate-200 bg-slate-100/60 py-16 sm:py-24 dark:border-slate-800 dark:bg-[#0f1b36]">
+      <section
+        id="team"
+        className="border-y border-slate-200 bg-slate-100/60 py-16 sm:py-24 dark:border-slate-800 dark:bg-[#0f1b36]"
+      >
         <div className="mx-auto max-w-7xl px-4 sm:px-8">
           <div className="mb-10 text-center sm:text-start">
-            <span className="eyebrow text-red-600 dark:text-red-400 font-bold">{t.team.kicker}</span>
+            <span className="eyebrow text-red-600 dark:text-red-400 font-bold">
+              {t.team.kicker}
+            </span>
             <h2 className="mt-2 text-2xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
               {t.team.title}
             </h2>
@@ -985,8 +1046,12 @@ function Index() {
                 key={idx}
                 className="rounded-2xl border border-slate-200 bg-white p-6 shadow-card text-center dark:border-slate-800 dark:bg-[#132244]"
               >
-                <div className="text-xs font-bold text-slate-500 dark:text-slate-400">{s.label}</div>
-                <div className="mt-2 text-3xl font-extrabold text-red-600 dark:text-red-400">{s.value}</div>
+                <div className="text-xs font-bold text-slate-500 dark:text-slate-400">
+                  {s.label}
+                </div>
+                <div className="mt-2 text-3xl font-extrabold text-red-600 dark:text-red-400">
+                  {s.value}
+                </div>
               </div>
             ))}
           </div>
@@ -1027,7 +1092,12 @@ function Index() {
                   : "Thank you for reaching out. Your message has been sent successfully and our team will get back to you soon."}
               </p>
               <button
-                onClick={() => { setContactSent(false); setContactName(""); setContactEmail(""); setContactMsg(""); }}
+                onClick={() => {
+                  setContactSent(false);
+                  setContactName("");
+                  setContactEmail("");
+                  setContactMsg("");
+                }}
                 className="mt-2 rounded-xl border border-emerald-400 px-6 py-2 text-sm font-bold text-emerald-700 hover:bg-emerald-100 dark:text-emerald-300 dark:hover:bg-emerald-900/50 transition-colors"
               >
                 {lang === "ar" ? "إرسال رسالة أخرى" : "Send Another Message"}
@@ -1044,9 +1114,10 @@ function Index() {
                     name: contactName,
                     email: contactEmail,
                     message: contactMsg,
-                    subject: lang === "ar"
-                      ? `استفسار جديد من ${contactName} - موقع البحر الأحمر للطرق`
-                      : `New inquiry from ${contactName} - Red Sea Roads Website`,
+                    subject:
+                      lang === "ar"
+                        ? `استفسار جديد من ${contactName} - موقع البحر الأحمر للطرق`
+                        : `New inquiry from ${contactName} - Red Sea Roads Website`,
                   });
 
                   if (res.success) {
@@ -1055,14 +1126,15 @@ function Index() {
                     alert(
                       lang === "ar"
                         ? res.message || "حدث خطأ أثناء إرسال الرسالة، يرجى المحاولة مرة أخرى."
-                        : res.message || "Something went wrong while sending your message. Please try again."
+                        : res.message ||
+                            "Something went wrong while sending your message. Please try again.",
                     );
                   }
                 } catch {
                   alert(
                     lang === "ar"
                       ? "تعذر الإرسال، يرجى التحقق من اتصالك بالإنترنت والمحاولة مجدداً."
-                      : "Sending failed, please check your internet connection and try again."
+                      : "Sending failed, please check your internet connection and try again.",
                   );
                 } finally {
                   setContactSubmitting(false);
@@ -1072,7 +1144,10 @@ function Index() {
             >
               {/* Name Field */}
               <div>
-                <label htmlFor="contact-name" className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                <label
+                  htmlFor="contact-name"
+                  className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5"
+                >
                   {lang === "ar" ? "الاسم الكامل *" : "Full Name *"}
                 </label>
                 <input
@@ -1088,7 +1163,10 @@ function Index() {
 
               {/* Email Field */}
               <div>
-                <label htmlFor="contact-email" className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                <label
+                  htmlFor="contact-email"
+                  className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5"
+                >
                   {lang === "ar" ? "بريدك الإلكتروني *" : "Your Email Address *"}
                 </label>
                 <input
@@ -1104,7 +1182,10 @@ function Index() {
 
               {/* Message Field */}
               <div>
-                <label htmlFor="contact-msg" className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                <label
+                  htmlFor="contact-msg"
+                  className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5"
+                >
                   {lang === "ar" ? "رسالتك *" : "Your Message *"}
                 </label>
                 <textarea
@@ -1113,7 +1194,11 @@ function Index() {
                   rows={5}
                   value={contactMsg}
                   onChange={(e) => setContactMsg(e.target.value)}
-                  placeholder={lang === "ar" ? "اكتب رسالتك هنا أو وصفاً لمشروعك..." : "Describe your project or inquiry..."}
+                  placeholder={
+                    lang === "ar"
+                      ? "اكتب رسالتك هنا أو وصفاً لمشروعك..."
+                      : "Describe your project or inquiry..."
+                  }
                   className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-5 py-3.5 text-sm text-slate-800 placeholder-slate-400 outline-none resize-none transition-all focus:border-red-500 focus:ring-2 focus:ring-red-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-red-400"
                 />
               </div>
@@ -1127,7 +1212,14 @@ function Index() {
                 {contactSubmitting ? (
                   <>
                     <svg className="size-4 animate-spin" viewBox="0 0 24 24" fill="none">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      />
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
                     </svg>
                     <span>{lang === "ar" ? "جارٍ الإرسال..." : "Sending..."}</span>
@@ -1145,7 +1237,10 @@ function Index() {
       </section>
 
       {/* FOOTER & CONTACT SECTION */}
-      <footer id="contact" className="relative bg-[#060c1a] text-slate-200 pt-16 pb-12 overflow-hidden">
+      <footer
+        id="contact"
+        className="relative bg-[#060c1a] text-slate-200 pt-16 pb-12 overflow-hidden"
+      >
         <div className="mx-auto max-w-7xl px-4 sm:px-8">
           <div className="grid gap-10 lg:grid-cols-2 border-b border-slate-800 pb-12">
             {/* Left Info */}
@@ -1158,8 +1253,8 @@ function Index() {
                 className="h-14 w-auto rounded-xl bg-white p-3 shadow-md"
               />
               <p className="text-sm leading-relaxed text-slate-400 max-w-md">
-                {lang === "ar" 
-                  ? "مستعدون لبدء تنفيذ المشروعات وتوفير كافة التوريدات والاستشارات الفنية بسرعة واحترافية." 
+                {lang === "ar"
+                  ? "مستعدون لبدء تنفيذ المشروعات وتوفير كافة التوريدات والاستشارات الفنية بسرعة واحترافية."
                   : "We are ready to execute your road and infrastructure projects with utmost speed, quality, and professionalism."}
               </p>
               <div className="space-y-3 text-sm">
@@ -1188,8 +1283,6 @@ function Index() {
 
             {/* Right Quick Actions */}
             <div className="flex flex-col justify-between space-y-6">
-
-
               {/* Direct Contact Links */}
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-3">
@@ -1218,9 +1311,10 @@ function Index() {
           </div>
 
           <div className="mt-8 text-center text-xs text-slate-500">
-            {lang === "ar" 
-              ? "جميع الحقوق محفوظة © شركة البحر الأحمر للمقاولات ورصف الطرق" 
-              : "All Rights Reserved © Red Sea for Roads & General Contracting Company"}          </div>
+            {lang === "ar"
+              ? "جميع الحقوق محفوظة © شركة البحر الأحمر للمقاولات ورصف الطرق"
+              : "All Rights Reserved © Red Sea for Roads & General Contracting Company"}{" "}
+          </div>
         </div>
 
         {/* FLOATING SPEED DIAL WHATSAPP BUTTON */}

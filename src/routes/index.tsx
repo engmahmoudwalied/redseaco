@@ -32,6 +32,8 @@ import {
   GALLERY_ITEMS_EN,
   CONTENT,
 } from "@/lib/translations";
+import { sendContactEmail } from "@/lib/emailjs";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -1021,8 +1023,8 @@ function Index() {
               </h3>
               <p className="text-sm text-slate-600 dark:text-slate-300">
                 {lang === "ar"
-                  ? "شكراً لتواصلك معنا. سيتم فتح بريدك الإلكتروني لإرسال الرسالة إذا لم تُرسل تلقائياً."
-                  : "Thank you for reaching out. Your email client will open to send the message if it didn't send automatically."}
+                  ? "شكراً لتواصلك معنا. تم استلام رسالتك بنجاح وسيتواصل معك فريقنا في أقرب وقت."
+                  : "Thank you for reaching out. Your message has been sent successfully and our team will get back to you soon."}
               </p>
               <button
                 onClick={() => { setContactSent(false); setContactName(""); setContactEmail(""); setContactMsg(""); }}
@@ -1037,37 +1039,31 @@ function Index() {
               onSubmit={async (e) => {
                 e.preventDefault();
                 setContactSubmitting(true);
-                // ─── Web3Forms free API — no backend needed ───
-                // 1. Go to https://web3forms.com
-                // 2. Enter  to get your Access Key
-                // 3. Paste the key below:
-                const WEB3FORMS_KEY = "YOUR_ACCESS_KEY_HERE";
-                const subject = lang === "ar"
-                  ? `استفسار من ${contactName} - موقع البحر الأحمر للطرق`
-                  : `Inquiry from ${contactName} - Red Sea Roads Website`;
-                const message = lang === "ar"
-                  ? `الاسم: ${contactName}\nالبريد الإلكتروني: ${contactEmail}\n\nالرسالة:\n${contactMsg}`
-                  : `Name: ${contactName}\nEmail: ${contactEmail}\n\nMessage:\n${contactMsg}`;
                 try {
-                  const res = await fetch("https://api.web3forms.com/submit", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json", Accept: "application/json" },
-                    body: JSON.stringify({
-                      access_key: WEB3FORMS_KEY,
-                      subject,
-                      message,
-                      from_name: contactName,
-                      reply_to: contactEmail,
-                    }),
+                  const res = await sendContactEmail({
+                    name: contactName,
+                    email: contactEmail,
+                    message: contactMsg,
+                    subject: lang === "ar"
+                      ? `استفسار جديد من ${contactName} - موقع البحر الأحمر للطرق`
+                      : `New inquiry from ${contactName} - Red Sea Roads Website`,
                   });
-                  const data = await res.json();
-                  if (data.success) {
+
+                  if (res.success) {
                     setContactSent(true);
                   } else {
-                    alert(lang === "ar" ? "حدث خطأ، حاول مرة أخرى." : "Something went wrong, please try again.");
+                    alert(
+                      lang === "ar"
+                        ? res.message || "حدث خطأ أثناء إرسال الرسالة، يرجى المحاولة مرة أخرى."
+                        : res.message || "Something went wrong while sending your message. Please try again."
+                    );
                   }
                 } catch {
-                  alert(lang === "ar" ? "تعذر الإرسال، تحقق من الاتصال بالإنترنت." : "Sending failed, check your internet connection.");
+                  alert(
+                    lang === "ar"
+                      ? "تعذر الإرسال، يرجى التحقق من اتصالك بالإنترنت والمحاولة مجدداً."
+                      : "Sending failed, please check your internet connection and try again."
+                  );
                 } finally {
                   setContactSubmitting(false);
                 }
@@ -1126,7 +1122,7 @@ function Index() {
               <button
                 type="submit"
                 disabled={contactSubmitting}
-                className="w-full rounded-2xl bg-red-600 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-red-600/30 hover:bg-red-500 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2.5"
+                className="w-full rounded-2xl bg-red-600 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-red-600/30 hover:bg-red-500 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2.5 cursor-pointer"
               >
                 {contactSubmitting ? (
                   <>
@@ -1143,12 +1139,6 @@ function Index() {
                   </>
                 )}
               </button>
-
-              <p className="text-center text-xs text-slate-400 dark:text-slate-500">
-                {lang === "ar"
-                  ? "الرسالة ستصل مباشرةً على بريد الشركة Info@redsearoadseg.com"
-                  : "Your message will be delivered directly to Info@redsearoadseg.com"}
-              </p>
             </form>
           )}
         </div>

@@ -79,58 +79,97 @@ const SITE_DESC =
 const OG_IMAGE = `${SITE_URL}/og-image.png`;
 const LOGO_URL = `${SITE_URL}/logo.png`;
 
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": ["GeneralContractor", "LocalBusiness"],
-  name: "شركة البحر الأحمر للمقاولات العامة ورصف الطرق",
-  alternateName: ["Red Sea for Roads Company", "شركة البحر الأحمر للطرق", "Red Sea Roads"],
-  url: SITE_URL,
-  logo: LOGO_URL,
-  image: OG_IMAGE,
-  description: SITE_DESC,
-  telephone: "+201000597912",
-  email: "Info@redsearoadseg.com",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "10 شارع الوحدة، المنشية",
-    addressLocality: "الغردقة",
-    addressRegion: "محافظة البحر الأحمر",
-    addressCountry: "EG",
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": ["GeneralContractor", "LocalBusiness"],
+    name: "شركة البحر الأحمر للمقاولات العامة ورصف الطرق",
+    alternateName: ["Red Sea for Roads Company", "شركة البحر الأحمر للطرق", "Red Sea Roads"],
+    url: SITE_URL,
+    logo: LOGO_URL,
+    image: OG_IMAGE,
+    description: SITE_DESC,
+    telephone: "+201000597912",
+    email: "Info@redsearoadseg.com",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "10 شارع الوحدة، المنشية",
+      addressLocality: "الغردقة",
+      addressRegion: "محافظة البحر الأحمر",
+      addressCountry: "EG",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: "27.2579",
+      longitude: "33.8116",
+    },
+    areaServed: [
+      "الغردقة",
+      "Hurghada",
+      "رأس غارب",
+      "Ras Ghareb",
+      "سهل حشيش",
+      "Sahl Hasheesh",
+      "سفاجا",
+      "Safaga",
+      "سوما باي",
+      "Soma Bay",
+      "القصير",
+      "El Quseir",
+      "مرسى علم",
+      "Marsa Alam",
+      "الجونة",
+      "El Gouna",
+      "محافظة البحر الأحمر",
+      "Red Sea Governorate",
+    ],
+    priceRange: "$$$",
+    openingHours: "Mo-Th 08:00-17:00, Sa-Su 08:00-17:00",
+    sameAs: [
+      "https://www.facebook.com",
+      "https://www.instagram.com",
+      "https://www.linkedin.com",
+      "https://www.youtube.com",
+    ],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "خدمات المقاولات العامة ورصف الطرق",
+      itemListElement: [
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "أعمال الأسفلت ورصف الطرق",
+            description: "تنفيذ وتصميم أعمال الأسفلت ورصف وتخطيط الطرق بمواصفات قياسية."
+          }
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "أعمال العزل والتجفيف",
+            description: "أعمال العزل المتكاملة وتجفيف المياه الجوفية والسطحية للمشروعات."
+          }
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "التوريدات العامة",
+            description: "توريد كافة مستلزمات ومواد البناء الأساسية للمقاولات."
+          }
+        }
+      ]
+    }
   },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: "27.2579",
-    longitude: "33.8116",
-  },
-  areaServed: [
-    "الغردقة",
-    "Hurghada",
-    "رأس غارب",
-    "Ras Ghareb",
-    "سهل حشيش",
-    "Sahl Hasheesh",
-    "سفاجا",
-    "Safaga",
-    "سوما باي",
-    "Soma Bay",
-    "القصير",
-    "El Quseir",
-    "مرسى علم",
-    "Marsa Alam",
-    "الجونة",
-    "El Gouna",
-    "محافظة البحر الأحمر",
-    "Red Sea Governorate",
-  ],
-  priceRange: "$$$",
-  openingHours: "Mo-Th 08:00-17:00, Sa-Su 08:00-17:00",
-  sameAs: [
-    "https://www.facebook.com",
-    "https://www.instagram.com",
-    "https://www.linkedin.com",
-    "https://www.youtube.com",
-  ],
-};
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "شركة البحر الأحمر للمقاولات",
+    url: SITE_URL,
+    description: SITE_DESC
+  }
+];
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
